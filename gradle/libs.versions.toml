@@ -1,0 +1,112 @@
+[versions]
+activityCompose = "1.9.2"
+agp = "8.6.0"
+androidxPagingCompose = "3.1.1"
+coilCompose = "2.2.2"
+compiler = "1.5.1"
+compilerVersion = "1.5.1"
+composeBomVersion = "2024.04.01"
+datastorePreferences = "1.0.0"
+hiltAndroid = "2.51.1"
+hiltAndroidCompiler = "2.51.1"
+hiltCompiler = "1.0.0"
+hiltCompilerVersion = "2.51.1"
+hiltNavigationCompose = "1.0.0"
+javaJwt = "4.4.0"
+jwtdecode = "2.0.1"
+kotlin = "1.8.10"
+coreKtx = "1.15.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+kotlinReflect = "1.8.10"
+kotlinxCoroutinesAndroid = "1.7.3"
+lifecycleViewmodelCompose = "2.8.5"
+mapsComposeVersion = "2.11.4"
+material = "1.12.0"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
+navigationCompose = "2.8.6"
+pagingCompose = "1.0.0-alpha18"
+pagingComposeVersion = "3.3.6"
+pagingRuntime = "3.3.6"
+pagingRuntimeKtx = "3.1.1"
+playServicesLocation = "21.3.0"
+playServicesMaps = "19.1.0"
+retrofit = "2.9.0"
+roomCompiler = "2.5.1"
+roomKtx = "2.5.1"
+roomPaging = "2.5.1"
+securityCryptoDatastorePreferences = "1.0.0-alpha04"
+securityCryptoKtx = "1.1.0-alpha05"
+datastoreCoreAndroid = "1.1.1"
+lifecycleRuntimeKtx = "2.8.7"
+pagingCommonAndroid = "3.3.6"
+pagingComposeAndroid = "3.3.6"
+
+[libraries]
+android-maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsComposeVersion" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-adaptive = { module = "androidx.compose.material3.adaptive:adaptive" }
+androidx-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compiler" }
+androidx-compiler-v132 = { module = "androidx.compose.compiler:compiler", version.ref = "compilerVersion" }
+androidx-compose-bom-v20250200 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-foundation = { module = "androidx.compose.foundation:foundation" }
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-material = { module = "androidx.compose.material:material" }
+androidx-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
+androidx-material3 = { module = "androidx.compose.material3:material3" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingComposeVersion" }
+androidx-paging-compose-v321 = { module = "androidx.paging:paging-compose", version.ref = "androidxPagingCompose" }
+androidx-paging-runtime = { module = "androidx.paging:paging-runtime" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
+androidx-runtime-rxjava2 = { module = "androidx.compose.runtime:runtime-rxjava2" }
+androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
+androidx-ui = { module = "androidx.compose.ui:ui" }
+androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompilerVersion" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+java-jwt = { module = "com.auth0:java-jwt", version.ref = "javaJwt" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+jwtdecode = { module = "com.auth0.android:jwtdecode", version.ref = "jwtdecode" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinReflect" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingRuntime" }
+paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
+security-crypto-datastore-preferences = { module = "io.github.osipxd:security-crypto-datastore-preferences", version.ref = "securityCryptoDatastorePreferences" }
+androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
+androidx-paging-compose-android = { group = "androidx.paging", name = "paging-compose-android", version.ref = "pagingComposeAndroid" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Lessons</string>
+    <string name="login_header_student">Login - Student</string>
+    <string name="signup_header_student">Signup - Student</string>
+    <string name="login_header_teacher">Login - Teacher</string>
+    <string name="signup_header_teacher">Signup - Teacher</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="login">Login</string>
+    <string name="register_redirect">Don\'t have account yet? Create account</string>
+    <string name="login_redirect">Already have account? Login here</string>
+    <string name="signup">Signup</string>
+    <string name="redirect_to_student_login">Are you a student? Login here</string>
+    <string name="redirect_to_teacher_login">Are you a teacher? Login here</string>
+    <string name="redirect_to_student_signup">Are you a student? Signup here</string>
+    <string name="redirect_to_teacher_signup">Are you a teacher? Signup here</string>
+    <string name="title_activity_drawer_navigation">DrawerNavigation</string>
+</resources>
