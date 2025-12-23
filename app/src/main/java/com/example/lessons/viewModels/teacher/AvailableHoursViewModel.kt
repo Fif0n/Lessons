@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lessons.R
 import com.example.lessons.models.AvailableHours
 import com.example.lessons.models.Day
 import com.example.lessons.models.Hour
@@ -32,13 +33,13 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
 
     private fun getWeekDays(): List<String> {
         return listOf(
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
+            context.getString(R.string.monday),
+            context.getString(R.string.tuesday),
+            context.getString(R.string.wednesday),
+            context.getString(R.string.thursday),
+            context.getString(R.string.friday),
+            context.getString(R.string.saturday),
+            context.getString(R.string.sunday)
         )
     }
 

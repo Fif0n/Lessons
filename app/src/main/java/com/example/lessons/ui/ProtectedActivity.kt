@@ -1,13 +1,19 @@
 package com.example.lessons.ui
 
+import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lessons.MainActivity
 import com.example.lessons.auth.AuthManager
+import com.example.lessons.utils.LocaleUtil
 
 abstract class ProtectedActivity: AppCompatActivity() {
     abstract val requiredRole: String?
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(LocaleUtil.wrapContextWithSystemLocale(base))
+    }
 
     override fun onStart() {
         super.onStart()

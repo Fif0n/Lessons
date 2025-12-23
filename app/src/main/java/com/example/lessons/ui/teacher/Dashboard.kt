@@ -32,6 +32,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.example.lessons.R
 import androidx.navigation.NavController
 import com.example.lessons.ui.teacher.navigation.Screen
 import com.example.lessons.viewModels.teacher.DashboardViewModel
@@ -85,7 +87,7 @@ fun IncomingLessons(viewModel: DashboardViewModel, navController: NavController)
             ) {
 
                 Text(
-                    text = "Lessons incoming in current week",
+                    text = stringResource(R.string.lessons_incoming_week),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -129,13 +131,17 @@ fun IncomingLessons(viewModel: DashboardViewModel, navController: NavController)
                                 modifier = Modifier.padding(4.dp)
                             ) {
                                 Text(
-                                    text = "With: ${item.student.getFullName()}"
+                                    text = stringResource(R.string.with_label_format, item.student.getFullName())
                                 )
                                 Text(
-                                    text = "Subject: ${item.subject}"
+                                    text = stringResource(R.string.subject_format, item.subject)
                                 )
                                 Text(
-                                    text = "Time: ${item.dateFormatted} ${item.hours.getHourRangeFormatted()}"
+                                    text = stringResource(
+                                        R.string.time_label_format,
+                                        item.dateFormatted ?: "",
+                                        item.hours.getHourRangeFormatted() ?: ""
+                                    )
                                 )
                             }
                         }
@@ -145,7 +151,7 @@ fun IncomingLessons(viewModel: DashboardViewModel, navController: NavController)
         }
     } else {
         Text(
-            text = "No lessons in this week",
+            text = stringResource(R.string.no_lessons_in_week),
             fontWeight = FontWeight.SemiBold,
             fontSize = 20.sp,
             textAlign = TextAlign.Center,
@@ -174,7 +180,7 @@ fun EstimatedIncome(viewModel: DashboardViewModel) {
             ) {
 
                 Text(
-                    text = "Estimated income in current month",
+                    text = stringResource(R.string.estimated_income_current_month),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -195,17 +201,17 @@ fun EstimatedIncome(viewModel: DashboardViewModel) {
             .padding(8.dp),
     ) {
         Text(
-            text = "Current estimated income: ${estimatedIncome?.currentIncome ?: 0} $",
+            text = stringResource(R.string.current_estimated_income_format, (estimatedIncome?.currentIncome ?: 0).toString()),
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            text = "Future estimated income: ${estimatedIncome?.futureIncome ?: 0} $",
+            text = stringResource(R.string.future_estimated_income_format, (estimatedIncome?.futureIncome ?: 0).toString()),
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold
         )
         Text(
-            text = "Total estimated income in month: ${estimatedIncome?.estimatedIncome ?: 0} $",
+            text = stringResource(R.string.total_estimated_income_month_format, (estimatedIncome?.estimatedIncome ?: 0).toString()),
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold
         )

@@ -21,7 +21,7 @@ class PanelActivity : ProtectedActivity() {
         super.onCreate(savedInstanceState)
 
         val repository = UserRepository(applicationContext)
-        viewModel = PanelViewModel(repository)
+        viewModel = PanelViewModel(repository, this)
 
         setContent {
             Surface {

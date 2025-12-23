@@ -1,5 +1,7 @@
 package com.example.lessons.viewModels.teacher
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AttachMoney
 import androidx.compose.material.icons.rounded.CalendarMonth
@@ -12,23 +14,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.lessons.auth.TokenManager
-import com.example.lessons.ui.teacher.navigation.NavigationItem
-import com.example.lessons.ui.teacher.navigation.Screen
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import android.content.Context
-import android.content.Intent
-import androidx.compose.material.icons.rounded.History
 import androidx.lifecycle.viewModelScope
+import androidx.compose.material.icons.rounded.History
+import com.example.lessons.R
+import com.example.lessons.auth.TokenManager
 import com.example.lessons.models.User
 import com.example.lessons.repositories.UserRepository
 import com.example.lessons.ui.TeacherLoginActivity
+import com.example.lessons.ui.teacher.navigation.NavigationItem
+import com.example.lessons.ui.teacher.navigation.Screen
 import com.example.lessons.utils.LoggedUser
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class PanelViewModel(private val repository: UserRepository): ViewModel() {
+class PanelViewModel(private val repository: UserRepository, private val context: Context): ViewModel() {
     var isProfileActionNeeded = MutableStateFlow<Boolean>(true)
         private set
 
@@ -38,7 +39,7 @@ class PanelViewModel(private val repository: UserRepository): ViewModel() {
     var user by mutableStateOf<User?>(null)
         private set
 
-    private val _title = MutableStateFlow("Dashboard")
+    private val _title = MutableStateFlow(context.getString(R.string.drawer_dashboard))
     val title: StateFlow<String> = _title.asStateFlow()
 
     init {
@@ -70,37 +71,37 @@ class PanelViewModel(private val repository: UserRepository): ViewModel() {
     fun getDrawerItems(): List<NavigationItem> {
         return listOf(
             NavigationItem(
-                title = "Dashboard",
+                title = context.getString(R.string.drawer_dashboard),
                 icon = Icons.Rounded.Dashboard,
                 route = Screen.Dashboard.route
             ),
             NavigationItem(
-                title = "Calendar",
+                title = context.getString(R.string.drawer_calendar),
                 icon = Icons.Rounded.CalendarMonth,
                 route = Screen.Calendar.route
             ),
             NavigationItem(
-                title = "Lessons request",
+                title = context.getString(R.string.drawer_lessons_requests_teacher),
                 icon = Icons.Rounded.School,
                 route = Screen.LessonsRequests.route
             ),
             NavigationItem(
-                title = "Opinions about me",
+                title = context.getString(R.string.drawer_opinions),
                 icon = Icons.Rounded.PostAdd,
                 route = Screen.OpinionsAboutMe.route
             ),
             NavigationItem(
-                title = "Conversations",
+                title = context.getString(R.string.drawer_conversations),
                 icon = Icons.Rounded.QuestionAnswer,
                 route = Screen.Conversations.route
             ),
             NavigationItem(
-                title = "Lessons history",
+                title = context.getString(R.string.drawer_lessons_history),
                 icon = Icons.Rounded.History,
                 route = Screen.LessonsHistory.route
             ),
             NavigationItem(
-                title = "Logout",
+                title = context.getString(R.string.drawer_logout),
                 icon = Icons.Rounded.Logout,
                 route = Screen.Logout.route
             ),

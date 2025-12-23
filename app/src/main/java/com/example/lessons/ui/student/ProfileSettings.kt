@@ -50,6 +50,7 @@ import coil.compose.AsyncImage
 import com.example.lessons.R
 import com.example.lessons.ui.student.navigation.Screen
 import com.example.lessons.viewModels.student.ProfileSettingsViewModel
+import androidx.compose.ui.res.stringResource
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
@@ -85,7 +86,7 @@ fun ProfileSettings(navController: NavController, viewModel: ProfileSettingsView
             } else {
                 Image(
                     painter = painterResource(R.drawable.avatar_placeholder),
-                    contentDescription = "Avatar",
+                    contentDescription = stringResource(com.example.lessons.R.string.avatar_desc),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(80.dp)
@@ -109,7 +110,7 @@ fun ProfileSettings(navController: NavController, viewModel: ProfileSettingsView
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Click to change avatar",
+                    text = stringResource(com.example.lessons.R.string.click_change_avatar),
                     fontSize = 14.sp,
                     modifier = Modifier.padding(top = 8.dp)
                 )
@@ -124,8 +125,8 @@ fun ProfileSettings(navController: NavController, viewModel: ProfileSettingsView
             color = Color.Gray
         )
 
-        ListRow("Basic data", "Basic account data", Icons.Rounded.AccountCircle, Screen.BasicData.route, navController)
-        ListRow("Password", "Change account password", Icons.Rounded.Password, Screen.Password.route, navController)
+        ListRow(stringResource(com.example.lessons.R.string.basic_data_title), stringResource(com.example.lessons.R.string.basic_account_data_desc), Icons.Rounded.AccountCircle, Screen.BasicData.route, navController)
+        ListRow(stringResource(com.example.lessons.R.string.password_title), stringResource(com.example.lessons.R.string.change_account_password_desc), Icons.Rounded.Password, Screen.Password.route, navController)
 
         UploadImageDialog(showDialog, { showDialog = false }, viewModel)
     }
@@ -215,7 +216,7 @@ fun UploadImageDialog(showDialog: Boolean, onDismiss: () -> Unit, viewModel: Pro
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Text(text = "Choose image", fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
+                        Text(text = stringResource(com.example.lessons.R.string.choose_image), fontSize = 22.sp, fontWeight = FontWeight.SemiBold)
                     }
 
                     Row(
@@ -231,7 +232,7 @@ fun UploadImageDialog(showDialog: Boolean, onDismiss: () -> Unit, viewModel: Pro
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFb31e9c))
                         ) {
-                            Text("Pick photo")
+                            Text(stringResource(com.example.lessons.R.string.pick_photo))
                         }
                     }
                     val uploadImageError by viewModel.uploadImageError.collectAsState()
@@ -250,7 +251,7 @@ fun UploadImageDialog(showDialog: Boolean, onDismiss: () -> Unit, viewModel: Pro
                                 contentScale = ContentScale.Crop
                             )
                         } else {
-                            Text("Avatar is empty")
+                            Text(stringResource(com.example.lessons.R.string.avatar_empty))
                         }
 
                         if (uploadImageError != null) {
@@ -270,7 +271,7 @@ fun UploadImageDialog(showDialog: Boolean, onDismiss: () -> Unit, viewModel: Pro
                                 .weight(1f)
                                 .padding(end = 5.dp)
                         ) {
-                            Text("Close")
+                            Text(stringResource(com.example.lessons.R.string.close))
                         }
 
                         Button(
@@ -281,7 +282,7 @@ fun UploadImageDialog(showDialog: Boolean, onDismiss: () -> Unit, viewModel: Pro
                                 .weight(1f)
                                 .padding(start = 5.dp)
                         ) {
-                            Text("Save")
+                            Text(stringResource(com.example.lessons.R.string.save))
                         }
                     }
                 }

@@ -30,32 +30,38 @@ data class User(
     val createdAt: String,
     val updatedAt: String,
     val availableHours: AvailableHours?,
-    val avatar: String
+    val avatar: String,
+    val subjectsTranslated: List<String>?,
+    val schoolLevelsTranslated: List<String>?,
+    val lessonPlacesTranslated: List<String>?,
+
 ) {
     fun decodeImage(): Bitmap? {
         return try {
-            val pureBase64 = avatar.substringAfter("base64,", "")
+            val input = avatar ?: ""
+            val pureBase64 = if (input.isBlank()) "" else input.substringAfter("base64,", "")
+            if (pureBase64.isBlank()) return null
             val decodedBytes = Base64.decode(pureBase64, Base64.DEFAULT)
             BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-        } catch (e: IllegalArgumentException) {
+        } catch (e: Exception) {
             e.printStackTrace()
             null
         }
     }
 
     fun subjectsFormatted(): String {
-        if (subject == null) return "-"
-        return subject.joinToString(", ")
+        if (subjectsTranslated == null) return "-"
+        return subjectsTranslated.joinToString(", ")
     }
 
     fun schoolLevelsFormatted(): String {
-        if (schoolLevel == null) return "-"
-        return schoolLevel.joinToString(", ")
+        if (schoolLevelsTranslated == null) return "-"
+        return schoolLevelsTranslated.joinToString(", ")
     }
 
     fun lessonsPlacesFormatted(): String {
-        if (lessonPlace == null) return "-"
-        return lessonPlace.joinToString(", ")
+        if (lessonPlacesTranslated == null) return "-"
+        return lessonPlacesTranslated.joinToString(", ")
     }
 
     fun getFullName(): String {

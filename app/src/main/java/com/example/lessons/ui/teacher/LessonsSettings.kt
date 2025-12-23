@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.lessons.models.Location
 import com.example.lessons.ui.teacher.navigation.Screen
@@ -51,6 +52,7 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.launch
+import com.example.lessons.R
 
 @RequiresApi(35)
 @Composable
@@ -78,7 +80,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Update lessons settings",
+            text = stringResource(R.string.update_lessons_settings_title),
             fontSize = 36.sp,
             modifier = Modifier
                 .padding(top = 60.dp)
@@ -91,13 +93,13 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
                 .padding(30.dp)
         ) {
             Log.d("FormDataValues", formData.toString())
-            MultiSelect(schoolLevelEnum, "School level", schoolLevelError, viewModel::updateFormFieldMap, "schoolLevel", formData.schoolLevel)
+            MultiSelect(schoolLevelEnum, stringResource(R.string.school_level_label), schoolLevelError, viewModel::updateFormFieldMap, "schoolLevel", formData.schoolLevel)
             Spacer(modifier = Modifier.size(10.dp))
 
-            MultiSelect(subjectsEnum, "Subjects", subjectError, viewModel::updateFormFieldMap, "subject", formData.subject)
+            MultiSelect(subjectsEnum, stringResource(R.string.subject_label), subjectError, viewModel::updateFormFieldMap, "subject", formData.subject)
             Spacer(modifier = Modifier.size(10.dp))
 
-            MultiSelect(lessonPlaceEnum, "Lesson place", lessonPlaceError, viewModel::updateFormFieldMap, "lessonPlace", formData.lessonPlace)
+            MultiSelect(lessonPlaceEnum, stringResource(R.string.lesson_place_label), lessonPlaceError, viewModel::updateFormFieldMap, "lessonPlace", formData.lessonPlace)
             Spacer(modifier = Modifier.size(10.dp))
 
             if (formData.lessonPlace.containsKey("onSite")) {
@@ -109,7 +111,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
                     formData.lessonsPlatform,
                     lessonsPlatformError,
                     viewModel::updateFormField,
-                    "Lessons online platform",
+                    stringResource(R.string.lessons_online_platform_label),
                     Icons.Default.Web,
                     "lessonsPlatform"
                 )
@@ -120,7 +122,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
                 formData.lessonMoneyRate,
                 lessonMoneyRateError,
                 viewModel::updateFormField,
-                "Lesson money rate",
+                stringResource(R.string.lesson_money_rate_label),
                 Icons.Default.Money,
                 "lessonMoneyRate"
             )
@@ -130,7 +132,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
                 formData.lessonLength,
                 lessonLengthError,
                 viewModel::updateFormField,
-                "Lesson length",
+                stringResource(R.string.lesson_length_label_settings),
                 Icons.Default.Timer,
                 "lessonLength"
             )
@@ -160,7 +162,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
                     )
                 } else {
                     Text(
-                        text = "Update",
+                        text = stringResource(R.string.update_button),
                         fontSize = 16.sp
                     )
                 }
@@ -173,7 +175,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     fontSize = 16.sp
                 )
             }
@@ -198,12 +200,12 @@ fun LocalizationSelect(viewModel: LessonsSettingViewModel, formData: LessonsSett
     OutlinedTextField(
         value = address,
         onValueChange = { address = it },
-        label = { Text("Address") },
+        label = { Text(stringResource(R.string.address_input_label)) },
         isError = error != null,
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.LocationOn,
-                contentDescription = "Address"
+                contentDescription = stringResource(R.string.address_input_label)
             )
         },
         modifier = Modifier
@@ -229,7 +231,7 @@ fun LocalizationSelect(viewModel: LessonsSettingViewModel, formData: LessonsSett
         },
         modifier = Modifier.fillMaxWidth()
     ) {
-        Text("Show on Map")
+        Text(stringResource(R.string.show_on_map_button))
     }
 
     Spacer(modifier = Modifier.size(10.dp))

@@ -217,7 +217,7 @@ fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayName: String
                             TimePicker({hour, minute ->
                                 endingHour = hour
                                 endingMinute = minute
-                            }, endingHour, endingMinute)
+                            }, endingHour, endingMinute, false)
 
                         }
 
@@ -339,7 +339,7 @@ fun ConfirmDelete(showDialog: Boolean, onDismiss: () -> Unit, onConfirm: () -> U
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun TimePicker(onTimeSelected: (Int, Int) -> Unit, selectedHour: Int?, selectedMinute: Int?) {
+fun TimePicker(onTimeSelected: (Int, Int) -> Unit, selectedHour: Int?, selectedMinute: Int?, startingHour: Boolean = true) {
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
 
@@ -357,7 +357,7 @@ fun TimePicker(onTimeSelected: (Int, Int) -> Unit, selectedHour: Int?, selectedM
     }
 
     Text(
-        text = "Starting hour: $timeFormatted",
+        text = if (startingHour) "Starting hour: $timeFormatted" else "Ending hour: $timeFormatted",
         modifier = Modifier.padding(bottom = 10.dp)
     )
     Button(

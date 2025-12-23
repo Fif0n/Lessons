@@ -32,6 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.compose.ui.res.stringResource
+import com.example.lessons.R
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -77,7 +79,7 @@ fun LessonsHistory(navController: NavController, viewModel: LessonsHistoryViewMo
                             formData.name,
                             null,
                             viewModel::updateFormField,
-                            "Student name/surname",
+                            stringResource(R.string.student_name_surname_hint),
                             Icons.Default.Abc,
                             "name",
                         )
@@ -97,7 +99,7 @@ fun LessonsHistory(navController: NavController, viewModel: LessonsHistoryViewMo
                             formData.id,
                             null,
                             viewModel::updateFormField,
-                            "ID",
+                            stringResource(R.string.id_label),
                             Icons.Default.Abc,
                             "id",
                         )
@@ -110,7 +112,7 @@ fun LessonsHistory(navController: NavController, viewModel: LessonsHistoryViewMo
                     ) {
                         SingleSelect(
                             subjectEnum,
-                            "Subject",
+                            stringResource(R.string.subject_label),
                             null,
                             viewModel::updateFormField,
                             "subject",
@@ -208,7 +210,7 @@ fun LessonHistoryItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Student: ",
+                    text = stringResource(R.string.student_label),
                     fontSize = 16.sp
                 )
 
@@ -221,7 +223,7 @@ fun LessonHistoryItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Subject:",
+                    text = stringResource(R.string.subject_label_request),
                     fontSize = 16.sp
                 )
                 Text(
@@ -233,7 +235,7 @@ fun LessonHistoryItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Time:",
+                    text = stringResource(R.string.time_label_request),
                     fontSize = 16.sp
                 )
                 Text(

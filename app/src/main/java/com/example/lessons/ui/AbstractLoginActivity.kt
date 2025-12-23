@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lessons.utils.LocaleUtil
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -32,6 +33,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -59,6 +61,10 @@ abstract class AbstractLoginActivity(
 
     protected abstract fun redirectToSignup()
     protected abstract fun redirectToLogin()
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(LocaleUtil.wrapContextWithSystemLocale(base))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,8 +113,8 @@ abstract class AbstractLoginActivity(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Login - ${role.replaceFirstChar { it.titlecase() }}",
-                    fontSize = 36.sp,
+                    text = headerTranslation(role),
+                    fontSize = 30.sp,
                     modifier = Modifier
                         .padding(60.dp)
                 )
@@ -122,12 +128,12 @@ abstract class AbstractLoginActivity(
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
-                        label = { Text("Email") },
+                        label = { Text(stringResource(com.example.lessons.R.string.email_hint)) },
                         isError = emailError != null,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Email,
-                                contentDescription = "Email"
+                                contentDescription = stringResource(com.example.lessons.R.string.email_hint)
                             )
                         },
                         modifier = Modifier
@@ -145,12 +151,12 @@ abstract class AbstractLoginActivity(
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
+                        label = { Text(stringResource(com.example.lessons.R.string.password_hint)) },
                         isError = passwordError != null,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Lock,
-                                contentDescription = "Password"
+                                contentDescription = stringResource(com.example.lessons.R.string.password_hint)
                             )
                         },
                         modifier = Modifier
@@ -174,20 +180,20 @@ abstract class AbstractLoginActivity(
                             .fillMaxWidth()
                     ) {
                         Text(
-                            text = "Login",
+                            text = stringResource(com.example.lessons.R.string.login),
                             fontSize = 16.sp
                         )
                     }
                     Spacer(modifier = Modifier.size(30.dp))
                     Text(
-                        text = "Don't have account yet? Create account",
+                        text = stringResource(com.example.lessons.R.string.register_redirect),
                         fontSize = 20.sp,
                         modifier = Modifier
                             .padding(bottom = 14.dp)
                             .clickable { redirectToSignup() },
                     )
                     Text(
-                        text = "Are you a ${getOppositeRole()}? Login here",
+                        text = stringResource(com.example.lessons.R.string.opposite_role_login, getOppositeRole()),
                         fontSize = 14.sp,
                         color = Color.Gray,
                         modifier = Modifier
@@ -216,8 +222,17 @@ abstract class AbstractLoginActivity(
         }
     }
 
+    @Composable
     private fun getOppositeRole(): String {
-        return if (role == "student") "teacher" else "student";
+        return if (role == "student") stringResource(com.example.lessons.R.string.auth_role_name_teacher) else stringResource(com.example.lessons.R.string.auth_role_name_student);
+    }
+
+    @Composable
+    private fun headerTranslation(role: String): String {
+        if (role === "student") return stringResource(com.example.lessons.R.string.login_header_student)
+        if (role === "teacher") return stringResource(com.example.lessons.R.string.login_header_teacher)
+
+        return ""
     }
 
 }

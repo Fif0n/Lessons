@@ -10,13 +10,13 @@ import com.example.lessons.viewModels.student.PanelViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PanelActivity : ProtectedActivity() {
+class PanelActivity: ProtectedActivity() {
     override val requiredRole: String = "student"
 
     @RequiresApi(35)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = PanelViewModel()
+        val viewModel = PanelViewModel(this)
 
         setContent {
             Surface {

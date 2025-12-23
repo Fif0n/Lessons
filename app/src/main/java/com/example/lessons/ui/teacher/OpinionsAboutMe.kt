@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
@@ -71,7 +72,7 @@ fun OpinionsAboutMe(navController: NavController, viewModel: OpinionsAboutMeView
                     ) {
 
                         Text(
-                            text = "Opinions about me",
+                            text = stringResource(com.example.lessons.R.string.opinions_about_me_title),
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -96,11 +97,9 @@ fun RatingsList(ratings: LazyPagingItems<Rating>) {
     val context = LocalContext.current
     LaunchedEffect(key1 = ratings.loadState) {
         if (ratings.loadState.refresh is LoadState.Error) {
-            Toast.makeText(
-                context,
-                "Error occurred: " + (ratings.loadState.refresh as LoadState.Error).error.message,
-                Toast.LENGTH_SHORT
-            ).show()
+            val errorMsg = (ratings.loadState.refresh as LoadState.Error).error.message ?: ""
+            val msg = context.getString(com.example.lessons.R.string.error_occurred, errorMsg)
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -157,7 +156,7 @@ fun TeacherItem(
                 val student = rating.student
 
                 Text(
-                    text = "By: ${student.getFullName()}",
+                    text = stringResource(com.example.lessons.R.string.by_format, student.getFullName()),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -170,21 +169,21 @@ fun TeacherItem(
                     repeat(fullStars) {
                         Icon(
                             imageVector = Icons.Filled.Star,
-                            contentDescription = "Full Star",
+                            contentDescription = stringResource(com.example.lessons.R.string.full_star_desc),
                             tint = Color(0xFFFFD700)
                         )
                     }
                     if (hasHalfStar) {
                         Icon(
                             imageVector = Icons.Filled.StarHalf,
-                            contentDescription = "Half Star",
+                            contentDescription = stringResource(com.example.lessons.R.string.half_star_desc),
                             tint = Color(0xFFFFD700)
                         )
                     }
                     repeat(emptyStars) {
                         Icon(
                             imageVector = Icons.Outlined.Star,
-                            contentDescription = "Empty Star",
+                            contentDescription = stringResource(com.example.lessons.R.string.empty_star_desc),
                             tint = Color.LightGray
                         )
                     }
@@ -193,7 +192,7 @@ fun TeacherItem(
                 }
 
                 Text(
-                    text = "Content: ${rating.text ?: "No content provided"}",
+                    text = stringResource(com.example.lessons.R.string.content_label, rating.text ?: stringResource(com.example.lessons.R.string.no_content_provided)),
                     fontSize = 16.sp
                 )
 
@@ -202,7 +201,7 @@ fun TeacherItem(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "At: ${rating.timestamp}",
+                        text = stringResource(com.example.lessons.R.string.created_at, rating.timestamp),
                         color = Color.Gray,
                         textAlign = TextAlign.End
                     )

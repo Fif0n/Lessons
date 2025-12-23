@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -64,7 +65,7 @@ fun Dashboard(navController: NavController, viewModel: DashboardViewModel) {
                     ) {
 
                         Text(
-                            text = "Lessons incoming in current week",
+                            text = stringResource(com.example.lessons.R.string.lessons_incoming_week),
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -104,13 +105,13 @@ fun Dashboard(navController: NavController, viewModel: DashboardViewModel) {
                                         modifier = Modifier.padding(4.dp)
                                     ) {
                                         Text(
-                                            text = "With: ${item.student.getFullName()}"
+                                            text = stringResource(com.example.lessons.R.string.with_label_format, item.student.getFullName())
                                         )
                                         Text(
-                                            text = "Subject: ${item.subject}"
+                                            text = stringResource(com.example.lessons.R.string.subject_format, item.subject)
                                         )
                                         Text(
-                                            text = "Time: ${item.dateFormatted} ${item.hours.getHourRangeFormatted()}"
+                                            text = stringResource(com.example.lessons.R.string.time_label_format, item.dateFormatted ?: "", item.hours.getHourRangeFormatted() ?: "")
                                         )
                                     }
                                 }
@@ -120,7 +121,7 @@ fun Dashboard(navController: NavController, viewModel: DashboardViewModel) {
                 }
             } else {
                 Text(
-                    text = "No lessons in this week",
+                    text = stringResource(com.example.lessons.R.string.no_lessons_in_week),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center,
