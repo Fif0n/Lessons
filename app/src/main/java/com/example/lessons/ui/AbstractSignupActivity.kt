@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lessons.utils.LocaleUtil
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -36,6 +37,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -60,6 +62,10 @@ abstract class AbstractSignupActivity(
 
     protected abstract fun redirectToSignup()
     protected abstract fun redirectToLogin()
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(LocaleUtil.wrapContextWithSystemLocale(base))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,8 +104,8 @@ abstract class AbstractSignupActivity(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "Signup - ${role.replaceFirstChar { it.titlecase() }}",
-                    fontSize = 36.sp,
+                    text = headerTranslation(role),
+                    fontSize = 30.sp,
                     modifier = Modifier
                         .padding(60.dp)
                 )
@@ -113,12 +119,12 @@ abstract class AbstractSignupActivity(
                     OutlinedTextField(
                         value = name,
                         onValueChange = { name = it },
-                        label = { Text("Name") },
+                        label = { Text(stringResource(com.example.lessons.R.string.name_label)) },
                         isError = nameError != null,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Person,
-                                contentDescription = "Name"
+                                contentDescription = stringResource(com.example.lessons.R.string.name_label)
                             )
                         },
                         modifier = Modifier
@@ -136,12 +142,12 @@ abstract class AbstractSignupActivity(
                     OutlinedTextField(
                         value = surname,
                         onValueChange = { surname = it },
-                        label = { Text("Surname") },
+                        label = { Text(stringResource(com.example.lessons.R.string.surname_label)) },
                         isError = surnameError != null,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Person,
-                                contentDescription = "Surname",
+                                contentDescription = stringResource(com.example.lessons.R.string.surname_label),
                             )
                         },
                         modifier = Modifier
@@ -159,12 +165,12 @@ abstract class AbstractSignupActivity(
                     OutlinedTextField(
                         value = email,
                         onValueChange = { email = it },
-                        label = { Text("Email") },
+                        label = { Text(stringResource(com.example.lessons.R.string.email_hint)) },
                         isError = emailError != null,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Email,
-                                contentDescription = "Email"
+                                contentDescription = stringResource(com.example.lessons.R.string.email_hint)
                             )
                         },
                         modifier = Modifier
@@ -182,12 +188,12 @@ abstract class AbstractSignupActivity(
                     OutlinedTextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
+                        label = { Text(stringResource(com.example.lessons.R.string.password_hint)) },
                         isError = passwordError != null,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Lock,
-                                contentDescription = "Password"
+                                contentDescription = stringResource(com.example.lessons.R.string.password_hint)
                             )
                         },
                         modifier = Modifier
@@ -207,12 +213,12 @@ abstract class AbstractSignupActivity(
                     OutlinedTextField(
                         value = passwordConfirm,
                         onValueChange = { passwordConfirm = it },
-                        label = { Text("Password confirm") },
+                        label = { Text(stringResource(com.example.lessons.R.string.password_confirm_label)) },
                         isError = passwordConfirmError != null,
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Lock,
-                                contentDescription = "Password confirm"
+                                contentDescription = stringResource(com.example.lessons.R.string.password_confirm_label)
                             )
                         },
                         modifier = Modifier
@@ -237,20 +243,20 @@ abstract class AbstractSignupActivity(
                             .fillMaxWidth()
                     ) {
                         Text(
-                            text = "Signup",
+                            text = stringResource(com.example.lessons.R.string.signup),
                             fontSize = 16.sp
                         )
                     }
                     Spacer(modifier = Modifier.size(30.dp))
                     Text(
-                        text = "Already have account? Login here",
+                        text = stringResource(com.example.lessons.R.string.login_redirect),
                         fontSize = 20.sp,
                         modifier = Modifier
                             .padding(bottom = 14.dp)
                             .clickable { redirectToLogin() },
                     )
                     Text(
-                        text = "Are you a ${getOppositeRole()}? Singup here",
+                        text = stringResource(com.example.lessons.R.string.opposite_role_signup, getOppositeRole()),
                         fontSize = 14.sp,
                         color = Color.Gray,
                         modifier = Modifier
@@ -275,8 +281,9 @@ abstract class AbstractSignupActivity(
 
         LaunchedEffect(Unit) {
             scope.launch {
+                val msg = context.getString(com.example.lessons.R.string.successfully_signed_up)
                 snackbarHostState.showSnackbar(
-                    message = "Successfully signup!",
+                    message = msg,
                     duration = SnackbarDuration.Short
                 )
 
@@ -287,7 +294,16 @@ abstract class AbstractSignupActivity(
         SnackbarHost(hostState = snackbarHostState)
     }
 
+    @Composable
     private fun getOppositeRole(): String {
-        return if (role == "student") "teacher" else "student";
+        return if (role == "student") stringResource(com.example.lessons.R.string.auth_role_name_teacher) else stringResource(com.example.lessons.R.string.auth_role_name_student);
+    }
+
+    @Composable
+    private fun headerTranslation(role: String): String {
+        if (role === "student") return stringResource(com.example.lessons.R.string.signup_header_student)
+        if (role === "teacher") return stringResource(com.example.lessons.R.string.signup_header_teacher)
+
+        return ""
     }
 }

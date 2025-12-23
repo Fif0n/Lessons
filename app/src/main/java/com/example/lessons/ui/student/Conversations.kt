@@ -30,6 +30,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
@@ -66,7 +67,7 @@ fun Conversations(navController: NavController, viewModel: ConversationsViewMode
                         formData.id,
                         null,
                         viewModel::updateFormField,
-                        "ID",
+                        stringResource(com.example.lessons.R.string.id_label),
                         Icons.Default.Abc,
                         "id",
                     )
@@ -84,9 +85,11 @@ fun ConversationList(conversations: LazyPagingItems<ConversationDto>, navControl
     val context = LocalContext.current
     LaunchedEffect(key1 = conversations.loadState) {
         if (conversations.loadState.refresh is LoadState.Error) {
+            val errorMsg = (conversations.loadState.refresh as LoadState.Error).error.message ?: ""
+            val msg = context.getString(com.example.lessons.R.string.error_occurred, errorMsg)
             Toast.makeText(
                 context,
-                "Error occurred: " + (conversations.loadState.refresh as LoadState.Error).error.message,
+                msg,
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -150,7 +153,7 @@ fun ConversationItem(
                     .fillMaxHeight()
             ) {
                 Text(
-                    text = "#${conversation._id}",
+                    text = stringResource(com.example.lessons.R.string.conversation_hash, conversation._id),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -158,7 +161,7 @@ fun ConversationItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Conversation with: ${conversation.lessonRequest.teacher.getFullName()}",
+                    text = stringResource(com.example.lessons.R.string.conversation_with, conversation.lessonRequest.teacher.getFullName()),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -166,7 +169,7 @@ fun ConversationItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Created at: ${conversation.createdAt}"
+                    text = stringResource(com.example.lessons.R.string.created_at, conversation.createdAt)
                 )
             }
         }

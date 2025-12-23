@@ -53,6 +53,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -113,7 +114,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                     teacher.decodeImage()?.let {
                         AsyncImage(
                             model = it,
-                            contentDescription = "Profile picture",
+                            contentDescription = stringResource(com.example.lessons.R.string.profile_picture_desc),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(300.dp)
@@ -128,7 +129,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                     ) {
                         Column {
                             Text(
-                                text = "Contact data:",
+                                text = stringResource(com.example.lessons.R.string.contact_data_label),
                                 fontSize = 22.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Left
@@ -137,12 +138,12 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                             Spacer(modifier = Modifier.height(10.dp))
 
                             Text(
-                                text = "Phone number: ${teacher.phoneNumber ?: "-"}",
+                                text = stringResource(com.example.lessons.R.string.phone_label_short, teacher.phoneNumber ?: "-"),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                             )
                             Text(
-                                text = "Email: ${teacher.email}",
+                                text = stringResource(com.example.lessons.R.string.email_label_format, teacher.email),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                             )
@@ -157,7 +158,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                     ) {
                         Column {
                             Text(
-                                text = "Teacher description:",
+                                text = stringResource(com.example.lessons.R.string.teacher_description_label),
                                 fontSize = 22.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Left
@@ -181,7 +182,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                     ) {
                         Column {
                             Text(
-                                text = "Teacher information:",
+                                text = stringResource(com.example.lessons.R.string.teacher_information_label),
                                 fontSize = 22.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Left
@@ -190,26 +191,26 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                             Spacer(modifier = Modifier.height(10.dp))
 
                             Text(
-                                text = "Taught subjects: ${teacher.subjectsFormatted()}",
+                                text = stringResource(com.example.lessons.R.string.taught_subjects_label, teacher.subjectsFormatted()),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                             )
 
                             Text(
-                                text = "Taught school level: ${teacher.schoolLevelsFormatted()}",
+                                text = stringResource(com.example.lessons.R.string.taught_school_level_label, teacher.schoolLevelsFormatted()),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                             )
 
                             Text(
-                                text = "Lessons locations: ${teacher.lessonsPlacesFormatted()}",
+                                text = stringResource(com.example.lessons.R.string.lessons_locations_label, teacher.lessonsPlacesFormatted()),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                             )
 
                             if (teacher.lessonPlace?.contains("online") == true) {
                                 Text(
-                                    text = "Online platform: ${teacher.lessonsPlatform}",
+                                    text = stringResource(com.example.lessons.R.string.online_platform_label, teacher.lessonsPlatform ?: ""),
                                     fontSize = 16.sp,
                                     modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                                 )
@@ -217,20 +218,20 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
 
                             if (teacher.lessonPlace?.contains("onSite") == true) {
                                 Text(
-                                    text = "Teacher location: ${teacher.location?.address}",
+                                    text = stringResource(com.example.lessons.R.string.teacher_location_label, teacher.location?.address ?: ""),
                                     fontSize = 16.sp,
                                     modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                                 )
                             }
 
                             Text(
-                                text = "Lesson length: ${teacher.lessonLength} min",
+                                text = stringResource(com.example.lessons.R.string.lesson_length_label, teacher.lessonLength ?: 0),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                             )
 
                             Text(
-                                text = "Lesson cost: ${teacher.lessonMoneyRate} $",
+                                text = stringResource(com.example.lessons.R.string.lesson_cost_label, teacher.lessonMoneyRate ?: 0),
                                 fontSize = 16.sp,
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                             )
@@ -245,7 +246,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                     ) {
                         Column {
                             Text(
-                                text = "Available hours:",
+                                text = stringResource(com.example.lessons.R.string.available_hours_label),
                                 fontSize = 22.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 textAlign = TextAlign.Left
@@ -256,7 +257,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                             if (teacher.availableHours?.dayOfWeek != null) {
                                 teacher.availableHours.dayOfWeek.forEach { day ->
                                     Text(
-                                        text = "${day.dayName}: ${day.hoursFormatted()}",
+                                        text = stringResource(com.example.lessons.R.string.day_hours_format, day.dayName, day.hoursFormatted()),
                                         fontSize = 16.sp,
                                         modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                                     )
@@ -282,7 +283,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                                     onClick = { showDialog = true },
                                 ) {
                                     Text(
-                                        text = "Show location on map",
+                                        text = stringResource(com.example.lessons.R.string.show_location_on_map),
                                         fontSize = 16.sp,
                                         modifier = Modifier.padding(6.dp)
                                     )
@@ -311,13 +312,13 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                             Button(
                                 onClick = { showRequestDialog = true },
                                 colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
-                            ) {
-                                Text(
-                                    text = "Send request for lesson",
-                                    fontSize = 16.sp,
-                                    modifier = Modifier.padding(6.dp)
-                                )
-                            }
+                                ) {
+                                    Text(
+                                        text = stringResource(com.example.lessons.R.string.send_request_for_lesson),
+                                        fontSize = 16.sp,
+                                        modifier = Modifier.padding(6.dp)
+                                    )
+                                }
                         }
                     }
                     Spacer(modifier = Modifier.height(10.dp))
@@ -344,7 +345,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                                     colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
                                 ) {
                                     Text(
-                                        text = "Rate teacher",
+                                        text = stringResource(com.example.lessons.R.string.rate_teacher),
                                         fontSize = 16.sp,
                                         modifier = Modifier.padding(6.dp)
                                     )
@@ -371,7 +372,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                                     colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
                                 ) {
                                     Text(
-                                        text = "Opinions about teacher",
+                                        text = stringResource(com.example.lessons.R.string.opinions_about_teacher),
                                         fontSize = 16.sp,
                                         modifier = Modifier.padding(6.dp)
                                     )
@@ -389,7 +390,7 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
 fun RateTeacherDialog(showDialog: Boolean, viewModel: TeacherProfileViewModel, teacherId: String, onDismiss: () -> Unit) {
     if (showDialog) {
         val ratingModel by viewModel.rating.collectAsState()
-        val title = if (ratingModel == null) "Leave rating" else "Edit rating"
+        val title = if (ratingModel == null) stringResource(com.example.lessons.R.string.leave_rating_title) else stringResource(com.example.lessons.R.string.edit_rating_title)
 
         Dialog(
             onDismissRequest = { onDismiss() }
@@ -420,14 +421,14 @@ fun RateTeacherDialog(showDialog: Boolean, viewModel: TeacherProfileViewModel, t
                         }
                     )
 
-                    Text(text = "Rating: $rating")
+                    Text(text = stringResource(com.example.lessons.R.string.rating_label_format, rating))
 
                     var rateText by remember { mutableStateOf(ratingModel?.text ?: "") }
 
                     OutlinedTextField(
                         rateText,
                         onValueChange = { rateText = it},
-                        label = { Text("Description (optional)") }
+                        label = { Text(stringResource(com.example.lessons.R.string.description_optional_label)) }
                     )
 
                     Row(
@@ -440,7 +441,7 @@ fun RateTeacherDialog(showDialog: Boolean, viewModel: TeacherProfileViewModel, t
                                 .weight(1f)
                                 .padding(end = 2.dp)
                         ) {
-                            Text("Cancel")
+                            Text(stringResource(com.example.lessons.R.string.cancel))
                         }
                         val context = LocalContext.current
                         Button(
@@ -457,7 +458,7 @@ fun RateTeacherDialog(showDialog: Boolean, viewModel: TeacherProfileViewModel, t
                                 .weight(1f)
                                 .padding(start = 2.dp)
                         ) {
-                            Text("Send")
+                            Text(stringResource(com.example.lessons.R.string.send_label))
                         }
                     }
                 }
@@ -530,7 +531,7 @@ fun LocationDialog(showDialog: Boolean, user: User, onDismiss: () -> Unit) {
                 ) {
                     Text(
                         textAlign = TextAlign.Center,
-                        text = "Location: ${user.location?.address}",
+                        text = stringResource(com.example.lessons.R.string.teacher_location_label, user.location?.address ?: ""),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -550,7 +551,7 @@ fun LocationDialog(showDialog: Boolean, user: User, onDismiss: () -> Unit) {
 
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = { onDismiss() }) {
-                        Text("Close")
+                        Text(stringResource(com.example.lessons.R.string.close_button))
                     }
                 }
             }
@@ -578,14 +579,14 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                 ) {
                     Text(
                         textAlign = TextAlign.Center,
-                        text = "Send lesson request",
+                        text = stringResource(com.example.lessons.R.string.send_lesson_request_title),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
 
                     Row {
-                        Text("Lesson price: ${user.lessonMoneyRate} $")
-                        Text("Lesson length: ${user.lessonLength}")
+                        Text(stringResource(com.example.lessons.R.string.lesson_price_format, user.lessonMoneyRate ?: 0))
+                        Text(stringResource(com.example.lessons.R.string.lesson_length_format, user.lessonLength ?: 0))
                     }
 
                     val context = LocalContext.current
@@ -627,11 +628,11 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                             onClick = { datePickerDialog.show() },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text(text = "Pick a Date")
+                            Text(text = stringResource(com.example.lessons.R.string.pick_date_button))
                         }
 
                         Text(
-                            text = if (selectedDate != null) "Selected date: $selectedDate" else "Select Date",
+                            text = if (selectedDate != null) stringResource(com.example.lessons.R.string.selected_date_format, selectedDate!!) else stringResource(com.example.lessons.R.string.select_date_button),
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(16.dp),
@@ -651,7 +652,7 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
 
                             if (times?.isEmpty() == true) {
                                 Text(
-                                    text = "No hours available",
+                                    text = stringResource(com.example.lessons.R.string.no_hours_available),
                                     fontSize = 18.sp,
                                     textAlign = TextAlign.Center,
                                     fontWeight = FontWeight.SemiBold
@@ -666,7 +667,7 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Gray),
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("Cancel")
+                            Text(stringResource(com.example.lessons.R.string.cancel))
                         }
                     }
                 }
@@ -754,7 +755,7 @@ fun ConfirmRequest(
 
                     SingleSelect(
                         viewModel.subjectsEnum.value,
-                        "Subject",
+                        stringResource(com.example.lessons.R.string.subject_label_dialog),
                         subjectError,
                         viewModel::updateFormField,
                         "subject",
@@ -763,7 +764,7 @@ fun ConfirmRequest(
 
                     SingleSelect(
                         viewModel.schoolLevelEnum.value,
-                        "School level",
+                        stringResource(com.example.lessons.R.string.school_level_label_dialog),
                         schoolLevelError,
                         viewModel::updateFormField,
                         "schoolLevel",
@@ -772,7 +773,7 @@ fun ConfirmRequest(
 
                     SingleSelect(
                         viewModel.lessonPlaceEnum.value,
-                        "Lesson place",
+                        stringResource(com.example.lessons.R.string.lesson_place_label_dialog),
                         lessonPlaceError,
                         viewModel::updateFormField,
                         "lessonPlace",
@@ -783,7 +784,7 @@ fun ConfirmRequest(
                         comment,
                         commentError,
                         viewModel::updateFormField,
-                        "Comment (optional)",
+                        stringResource(com.example.lessons.R.string.comment_optional),
                         Icons.Default.Textsms,
                         "comment"
                     )
@@ -798,7 +799,7 @@ fun ConfirmRequest(
                                 .weight(1f)
                                 .padding(end = 2.dp)
                         ) {
-                            Text("Cancel")
+                            Text(stringResource(com.example.lessons.R.string.cancel))
                         }
                         Button(
                             onClick = {
@@ -811,7 +812,7 @@ fun ConfirmRequest(
                                 .weight(1f)
                                 .padding(start = 2.dp)
                         ) {
-                            Text("Send")
+                            Text(stringResource(com.example.lessons.R.string.send_label))
                         }
                     }
                 }

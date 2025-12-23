@@ -14,6 +14,7 @@ import com.example.lessons.modules.backendApi.responses.UpdateAvailableHoursResp
 import com.example.lessons.modules.backendApi.responses.UpdateUserResponse
 import com.example.lessons.ui.formDatas.BasicFormData
 import com.example.lessons.ui.formDatas.UpdatePasswordFormData
+import com.example.lessons.utils.LanguageInterceptor
 import com.example.lessons.viewModels.teacher.AvailableHoursFormData
 import com.example.lessons.viewModels.teacher.LessonsSettingsFormData
 import com.google.gson.Gson
@@ -29,9 +30,17 @@ import java.io.FileOutputStream
 open class Api(private val context: Context) {
     private val baseUrl: String = com.example.lessons.BuildConfig.BASE_URL
 
+    private fun baseOkHttpClientBuilder(): OkHttpClient.Builder {
+        return OkHttpClient.Builder()
+            .addInterceptor(LanguageInterceptor(context))
+    }
+
     protected fun provideApiService(): ApiService {
+        val client = baseOkHttpClientBuilder().build()
+
         return Retrofit.Builder()
             .baseUrl(baseUrl)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
@@ -40,7 +49,7 @@ open class Api(private val context: Context) {
     fun provideApiServiceWithBearer(): ApiService {
         val tokenManager = TokenManager(context)
 
-        val client = OkHttpClient.Builder()
+        val client = baseOkHttpClientBuilder()
             .addInterceptor(AuthInterceptor(tokenManager))
             .build()
 

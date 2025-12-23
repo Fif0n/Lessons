@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.lessons.ui.student.navigation.Screen
 import com.example.lessons.viewModels.student.UpdatePasswordViewModel
@@ -56,7 +57,7 @@ fun UpdatePassword(navController: NavController, viewModel: UpdatePasswordViewMo
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Update password",
+            text = stringResource(com.example.lessons.R.string.update_password_title),
             fontSize = 36.sp,
             modifier = Modifier
                 .padding(top = 60.dp)
@@ -71,13 +72,13 @@ fun UpdatePassword(navController: NavController, viewModel: UpdatePasswordViewMo
             OutlinedTextField(
                 value = formData.currentPassword,
                 onValueChange = { onFieldValueChange("currentPassword", it) },
-                label = { Text("Old password") },
+                label = { Text(stringResource(com.example.lessons.R.string.old_password_label)) },
                 isError = currentPasswordError != null,
                 leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "Old password"
-                    )
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = stringResource(com.example.lessons.R.string.old_password_label)
+                            )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -95,13 +96,13 @@ fun UpdatePassword(navController: NavController, viewModel: UpdatePasswordViewMo
             OutlinedTextField(
                 value = formData.password,
                 onValueChange = { onFieldValueChange("password", it) },
-                label = { Text("New password") },
+                label = { Text(stringResource(com.example.lessons.R.string.new_password_label)) },
                 isError = passwordError != null,
                 leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "New password"
-                    )
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = stringResource(com.example.lessons.R.string.new_password_label)
+                            )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -119,13 +120,13 @@ fun UpdatePassword(navController: NavController, viewModel: UpdatePasswordViewMo
             OutlinedTextField(
                 value = formData.passwordConfirm,
                 onValueChange = { onFieldValueChange("passwordConfirm", it) },
-                label = { Text("Password confirm") },
+                label = { Text(stringResource(com.example.lessons.R.string.password_confirm_label)) },
                 isError = passwordConfirmError != null,
                 leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "Password confirm"
-                    )
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = stringResource(com.example.lessons.R.string.password_confirm_label)
+                            )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -165,10 +166,10 @@ fun UpdatePassword(navController: NavController, viewModel: UpdatePasswordViewMo
                         strokeWidth = 2.dp
                     )
                 } else {
-                    Text(
-                        text = "Update",
-                        fontSize = 16.sp
-                    )
+                            Text(
+                                text = stringResource(com.example.lessons.R.string.update_button),
+                                fontSize = 16.sp
+                            )
                 }
             }
             Button(
@@ -179,7 +180,7 @@ fun UpdatePassword(navController: NavController, viewModel: UpdatePasswordViewMo
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(com.example.lessons.R.string.cancel),
                     fontSize = 16.sp
                 )
             }

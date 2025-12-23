@@ -85,7 +85,7 @@ interface ApiService {
     @GET("user/get-avatar")
     suspend fun getAvatar(): Response<ResponseBody>
 
-    @GET("user/estimated-in come")
+    @GET("user/estimated-income")
     suspend fun getEstimatedIncome(): EstimatedIncomeResponse
 
     @GET("teacher/teachers")

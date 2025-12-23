@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -174,7 +175,7 @@ fun Screen(viewModel: PanelViewModel, content: Context) {
         drawerContent = {
             ModalDrawerSheet {
                 Text(
-                    text = "Lessons",
+                    text = stringResource(com.example.lessons.R.string.nav_app_title),
                     fontSize = 24.sp,
                     modifier = Modifier.padding(16.dp)
                 )
@@ -252,6 +253,8 @@ private fun TopBar(
     title: String,
     onOpen: () -> Unit
 ) {
+    val profileSettingsTitle = stringResource(com.example.lessons.R.string.nav_profile_settings_title)
+    
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
@@ -259,7 +262,7 @@ private fun TopBar(
         navigationIcon = {
             Icon(
                 imageVector = Icons.Default.Menu,
-                contentDescription = "Menu",
+                contentDescription = stringResource(com.example.lessons.R.string.nav_menu_desc),
                 modifier = Modifier
                     .padding(start = 16.dp, end = 8.dp)
                     .size(28.dp)
@@ -282,7 +285,7 @@ private fun TopBar(
             ) {
                 Icon(
                     imageVector = Icons.Default.Notifications,
-                    contentDescription = "Notifications",
+                    contentDescription = stringResource(com.example.lessons.R.string.nav_notifications_desc),
                     modifier = Modifier
                         .padding(start = 8.dp, end = 8.dp)
                         .size(28.dp)
@@ -296,12 +299,12 @@ private fun TopBar(
                     .clickable {
                         navController.navigate(Screen.ProfileSettings.route)
                         viewModel.setSelectedIndex(null)
-                        viewModel.setTitle("Profile settings")
+                        viewModel.setTitle(profileSettingsTitle)
                     }
             ) {
                 Icon(
                     imageVector = Icons.Default.AccountCircle,
-                    contentDescription = "Account",
+                    contentDescription = stringResource(com.example.lessons.R.string.nav_account_desc),
                     modifier = Modifier
                         .padding(start = 8.dp, end = 8.dp)
                         .size(28.dp)

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,12 +31,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
+import com.example.lessons.R
 import com.example.lessons.ui.student.navigation.Screen
 import com.example.lessons.viewModels.student.LessonRequestViewModel
 import kotlinx.coroutines.launch
@@ -72,7 +80,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                        }
                     ) {
                         Text(
-                            text = "Teacher:",
+                            text = stringResource(R.string.teacher_label),
                             fontSize = 16.sp
                         )
 
@@ -86,7 +94,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Subject:",
+                        text = stringResource(R.string.subject_label_lesson),
                         fontSize = 18.sp
                     )
                     Text(
@@ -98,7 +106,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "School level:",
+                        text = stringResource(R.string.school_level_label_lesson),
                         fontSize = 18.sp
                     )
                     Text(
@@ -110,7 +118,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Lesson place:",
+                        text = stringResource(R.string.lesson_place_label_lesson),
                         fontSize = 18.sp
                     )
                     Text(
@@ -122,7 +130,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Time:",
+                        text = stringResource(R.string.time_label_lesson),
                         fontSize = 18.sp
                     )
                     Text(
@@ -134,7 +142,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Status:",
+                        text = stringResource(R.string.status_label),
                         fontSize = 18.sp
                     )
                     Text(
@@ -147,20 +155,54 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
 
                     if (it.lessonPlace == "Online") {
                         Text(
-                            text = "Lesson link:",
+                            text = stringResource(R.string.lesson_link_label_lesson),
                             fontSize = 18.sp
                         )
-                        Text(
-                            text = it.onlineLessonLink ?: "-",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
+
+                        if (it.onlineLessonLink !== null) {
+                            val uriHandler = LocalUriHandler.current
+
+                            val annotatedText = buildAnnotatedString {
+                                pushStringAnnotation(
+                                    tag = "URL",
+                                    annotation = it.onlineLessonLink
+                                )
+                                withStyle(
+                                    style = SpanStyle(
+                                        color = Color.Blue,
+                                        textDecoration = TextDecoration.Underline
+                                    )
+                                ) {
+                                    append(it.onlineLessonLink.toString())
+                                }
+                                pop()
+                            }
+
+                            ClickableText(
+                                text = annotatedText,
+                                onClick = { offset ->
+                                    annotatedText
+                                        .getStringAnnotations("URL", offset, offset)
+                                        .firstOrNull()
+                                        ?.let { annotation ->
+                                            uriHandler.openUri(annotation.item)
+                                        }
+                                }
+                            )
+                        } else {
+                            Text(
+                                text = "-",
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+
 
                         Spacer(modifier = Modifier.height(10.dp))
                     }
 
                     Text(
-                        text = "Teacher contact:",
+                        text = stringResource(R.string.teacher_contact_label),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -168,7 +210,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Email:",
+                        text = stringResource(R.string.email_label_lesson),
                         fontSize = 18.sp
                     )
                     Text(
@@ -181,7 +223,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Text(
-                            text = "Phone number:",
+                            text = stringResource(R.string.phone_number_label_lesson),
                             fontSize = 18.sp
                         )
                         Text(
@@ -195,7 +237,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Text(
-                            text = "Additional information:",
+                            text = stringResource(R.string.additional_info_label),
                             fontSize = 18.sp
                         )
                         Text(
@@ -213,7 +255,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         border = BorderStroke(1.dp, Color.Black),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = "Send message", color = Color.Black)
+                        Text(text = stringResource(R.string.send_message_button), color = Color.Black)
                     }
 
                     SendMessage(
@@ -248,7 +290,7 @@ fun SendMessage(showDialog: Boolean, viewModel: LessonRequestViewModel, id: Stri
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "Send message to student",
+                        text = stringResource(R.string.send_message_to_teacher),
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center
                     )
@@ -257,7 +299,7 @@ fun SendMessage(showDialog: Boolean, viewModel: LessonRequestViewModel, id: Stri
                     OutlinedTextField(
                         value = message,
                         onValueChange = {message = it},
-                        label = { Text("Message") }
+                        label = { Text(stringResource(R.string.message_input_label)) }
                     )
 
                     Row {
@@ -269,7 +311,7 @@ fun SendMessage(showDialog: Boolean, viewModel: LessonRequestViewModel, id: Stri
                                 .padding(end = 4.dp)
                         ) {
                             Text(
-                                text = "Cancel",
+                                text = stringResource(R.string.cancel),
                             )
                         }
 
@@ -285,7 +327,7 @@ fun SendMessage(showDialog: Boolean, viewModel: LessonRequestViewModel, id: Stri
                                 .padding(start = 4.dp)
                         ) {
                             Text(
-                                text = "Accept",
+                                text = stringResource(R.string.accept_button),
                             )
                         }
                     }

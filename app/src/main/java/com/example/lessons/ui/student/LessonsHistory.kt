@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -77,7 +78,7 @@ fun LessonsHistory(navController: NavController, viewModel: LessonsHistoryViewMo
                             formData.name,
                             null,
                             viewModel::updateFormField,
-                            "Teacher name/surname",
+                            stringResource(com.example.lessons.R.string.teacher_name_surname),
                             Icons.Default.Abc,
                             "name",
                         )
@@ -110,7 +111,7 @@ fun LessonsHistory(navController: NavController, viewModel: LessonsHistoryViewMo
                     ) {
                         SingleSelect(
                             subjectEnum,
-                            "Subject",
+                            stringResource(com.example.lessons.R.string.subject_label),
                             null,
                             viewModel::updateFormField,
                             "subject",
@@ -208,7 +209,7 @@ fun LessonHistoryItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Teacher:",
+                    text = stringResource(com.example.lessons.R.string.teacher_label),
                     fontSize = 16.sp
                 )
 
@@ -221,7 +222,7 @@ fun LessonHistoryItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Subject:",
+                    text = stringResource(com.example.lessons.R.string.subject_label_lesson),
                     fontSize = 16.sp
                 )
                 Text(
@@ -233,7 +234,7 @@ fun LessonHistoryItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Time:",
+                    text = stringResource(com.example.lessons.R.string.time_label_lesson),
                     fontSize = 16.sp
                 )
                 Text(

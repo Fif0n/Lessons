@@ -24,6 +24,7 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -76,7 +77,7 @@ fun FindTeacher(navController: NavController, viewModel: FindTeacherViewModel = 
                 ) {
                     MultiSelect(
                         subjectsEnum,
-                        "Subject",
+                        stringResource(com.example.lessons.R.string.subject_label),
                         null,
                         viewModel::updateFormFieldMap,
                         "subject",
@@ -91,7 +92,7 @@ fun FindTeacher(navController: NavController, viewModel: FindTeacherViewModel = 
                 ) {
                     MultiSelect(
                         schoolLevelEnum,
-                        "School level",
+                        stringResource(com.example.lessons.R.string.school_level_label),
                         null,
                         viewModel::updateFormFieldMap,
                         "schoolLevel",
@@ -111,7 +112,7 @@ fun FindTeacher(navController: NavController, viewModel: FindTeacherViewModel = 
                 ) {
                     MultiSelect(
                         lessonPlaceEnum,
-                        "Lesson place",
+                        stringResource(com.example.lessons.R.string.lesson_place_label),
                         null,
                         viewModel::updateFormFieldMap,
                         "lessonPlace",
@@ -128,7 +129,7 @@ fun FindTeacher(navController: NavController, viewModel: FindTeacherViewModel = 
                         formData.moneyRate,
                         null,
                         viewModel::updateFormField,
-                        "Max cost",
+                        stringResource(com.example.lessons.R.string.max_cost_label),
                         Icons.Default.Money,
                         "moneyRate",
                     )
@@ -148,7 +149,7 @@ fun FindTeacher(navController: NavController, viewModel: FindTeacherViewModel = 
                         formData.minLessonLength,
                         null,
                         viewModel::updateFormField,
-                        "Min lesson length",
+                        stringResource(com.example.lessons.R.string.min_lesson_length_label),
                         Icons.Default.Money,
                         "minLessonLength",
                     )
@@ -163,7 +164,7 @@ fun FindTeacher(navController: NavController, viewModel: FindTeacherViewModel = 
                         formData.maxLessonLength,
                         null,
                         viewModel::updateFormField,
-                        "Max lesson length",
+                        stringResource(com.example.lessons.R.string.max_lesson_length_label),
                         Icons.Default.Money,
                         "maxLessonLength",
                     )
@@ -180,9 +181,11 @@ fun TeachersList(teachers: LazyPagingItems<TeacherGeneralDataDto>, navController
     val context = LocalContext.current
     LaunchedEffect(key1 = teachers.loadState) {
         if (teachers.loadState.refresh is LoadState.Error) {
+            val errorMsg = (teachers.loadState.refresh as LoadState.Error).error.message ?: ""
+            val msg = context.getString(com.example.lessons.R.string.error_occurred, errorMsg)
             Toast.makeText(
                 context,
-                "Error occurred: " + (teachers.loadState.refresh as LoadState.Error).error.message,
+                msg,
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -243,7 +246,7 @@ fun TeacherItem(
             teacher.decodeImage()?.let {
                 AsyncImage(
                     model = it,
-                    contentDescription = "Profile picture",
+                    contentDescription = stringResource(com.example.lessons.R.string.profile_picture_desc),
                     modifier = Modifier
                         .weight(1f)
                         .height(200.dp)
@@ -256,13 +259,13 @@ fun TeacherItem(
                     .fillMaxHeight()
             ) {
                 Text(
-                    text = "Name: ${teacher.name} ${teacher.surname}"
+                    text = stringResource(com.example.lessons.R.string.name_format, teacher.name, teacher.surname)
                 )
                 Text(
-                    text = "Email: ${teacher.email}"
+                    text = stringResource(com.example.lessons.R.string.email_format, teacher.email)
                 )
                 Text(
-                    text = "Phone number: ${teacher.phoneNumber}"
+                    text = stringResource(com.example.lessons.R.string.phone_format, teacher.phoneNumber)
                 )
 
                 Row(
@@ -272,7 +275,7 @@ fun TeacherItem(
                     Column {
                         Text(
                             fontWeight = FontWeight.SemiBold,
-                            text = "Self description: "
+                            text = stringResource(com.example.lessons.R.string.self_description_label)
                         )
                         Text(
                             text = teacher.description
@@ -297,25 +300,25 @@ fun StarRating(rating: Float, count: Int, maxStars: Int = 5) {
         repeat(fullStars) {
             Icon(
                 imageVector = Icons.Filled.Star,
-                contentDescription = "Full Star",
+                contentDescription = stringResource(com.example.lessons.R.string.full_star_desc),
                 tint = Color(0xFFFFD700)
             )
         }
         if (hasHalfStar) {
             Icon(
                 imageVector = Icons.Filled.StarHalf,
-                contentDescription = "Half Star",
+                contentDescription = stringResource(com.example.lessons.R.string.half_star_desc),
                 tint = Color(0xFFFFD700)
             )
         }
         repeat(emptyStars) {
             Icon(
                 imageVector = Icons.Outlined.Star,
-                contentDescription = "Empty Star",
+                contentDescription = stringResource(com.example.lessons.R.string.empty_star_desc),
                 tint = Color.LightGray
             )
         }
 
-        Text("$rating ($count)")
+        Text(stringResource(com.example.lessons.R.string.rating_format, rating.toDouble(), count))
     }
 }

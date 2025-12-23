@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.lessons.ui.student.uiComponents.InputField
 import com.example.lessons.ui.teacher.navigation.Screen
@@ -60,7 +61,7 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Update basic data",
+            text = stringResource(com.example.lessons.R.string.update_basic_data_title),
             fontSize = 36.sp,
             modifier = Modifier
                 .padding(top = 60.dp)
@@ -76,7 +77,7 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
                 formData.name,
                 nameError,
                 viewModel::updateFormField,
-                "Name",
+                stringResource(com.example.lessons.R.string.name_label),
                 Icons.Default.Person,
                 "name"
             )
@@ -85,7 +86,7 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
                 formData.surname,
                 surnameError,
                 viewModel::updateFormField,
-                "Surname",
+                stringResource(com.example.lessons.R.string.surname_label),
                 Icons.Default.Person,
                 "surname"
             )
@@ -94,7 +95,7 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
                 formData.email,
                 emailError,
                 viewModel::updateFormField,
-                "Email",
+                stringResource(com.example.lessons.R.string.email_hint),
                 Icons.Default.Email,
                 "email"
             )
@@ -103,19 +104,19 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
                 formData.phoneNumber,
                 phoneNumberError,
                 viewModel::updateFormField,
-                "Phone number",
+                stringResource(com.example.lessons.R.string.phone_label),
                 Icons.Default.Phone,
                 "phoneNumber"
             )
             OutlinedTextField(
                 value = formData.yourselfDescription,
                 onValueChange = { onFieldValueChange("yourselfDescription", it) },
-                label = { Text("Yourself description") },
+                label = { Text(stringResource(com.example.lessons.R.string.yourself_description_label)) },
                 isError = yourselfDescriptionError != null,
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Default.Description,
-                        contentDescription = "Yourself description"
+                        contentDescription = stringResource(com.example.lessons.R.string.yourself_description_label)
                     )
                 },
                 modifier = Modifier
@@ -156,7 +157,7 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
                     )
                 } else {
                     Text(
-                        text = "Update",
+                        text = stringResource(com.example.lessons.R.string.update_button),
                         fontSize = 16.sp
                     )
                 }
@@ -169,7 +170,7 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
                     .fillMaxWidth()
             ) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(com.example.lessons.R.string.cancel),
                     fontSize = 16.sp
                 )
             }

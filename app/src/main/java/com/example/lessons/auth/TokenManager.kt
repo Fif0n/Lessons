@@ -25,3 +25,4 @@ class TokenManager(context: Context) {
         sharedPreferences.edit().remove(JWT_KEY).apply()
     }
 }
+
