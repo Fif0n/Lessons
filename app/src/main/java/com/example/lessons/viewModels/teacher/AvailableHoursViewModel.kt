@@ -66,12 +66,12 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
 
     fun setHours(dayName: String, startingHour: Int, startingMinute: Int, endingHour: Int, endingMinute: Int): Boolean {
         if (startingHour > endingHour) {
-            setError("Starting time cannot be greater than ending time")
+            setError(context.getString(R.string.starting_time_greater_error))
             return false
         }
 
         if (startingHour == endingHour && startingMinute > endingMinute) {
-            setError("Starting time cannot be greater than ending time")
+            setError(context.getString(R.string.starting_time_greater_error))
             return false
         }
 
@@ -93,7 +93,7 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
                                             (newTimeRange.hourTo.hour == existingFrom.hour && newTimeRange.hourTo.minute <= existingFrom.minute) ||
                                             newTimeRange.hourFrom.hour > existingTo.hour ||
                                             (newTimeRange.hourFrom.hour == existingTo.hour && newTimeRange.hourFrom.minute >= existingTo.minute))) {
-                                    setError("Provided hours are incorrect. You already have that time")
+                                    setError(context.getString(R.string.hours_conflict_error))
                                     return false
                                 }
                             }
@@ -116,13 +116,13 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
             val response = repository.updateAvailableHours(formData)
 
             if (response == null) {
-                Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             } else {
                 if (response.status == "success") {
-                    Toast.makeText(context, "Updated hours successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.updated_hours_success), Toast.LENGTH_SHORT).show()
                     panelViewModel.checkVerification()
                 } else {
-                    Toast.makeText(context, "Error occurred while updating", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.error_updating_hours), Toast.LENGTH_SHORT).show()
                 }
             }
         }

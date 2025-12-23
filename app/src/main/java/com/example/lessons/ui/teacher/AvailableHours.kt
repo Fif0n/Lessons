@@ -35,6 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.example.lessons.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -95,7 +97,7 @@ fun AvailableHours(navController: NavController, viewModel: AvailableHoursViewMo
                 )
             } else {
                 Text(
-                    text = "Update",
+                    text = stringResource(R.string.update_button),
                     fontSize = 16.sp
                 )
             }
@@ -108,7 +110,7 @@ fun AvailableHours(navController: NavController, viewModel: AvailableHoursViewMo
                 .fillMaxWidth()
         ) {
             Text(
-                text = "Cancel",
+                text = stringResource(R.string.cancel),
                 fontSize = 16.sp
             )
         }
@@ -157,14 +159,14 @@ fun WeekDayPanel(day: Day, viewModel: AvailableHoursViewModel, formData: Availab
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF059649)),
                             modifier = Modifier.padding(end = 10.dp)
                         ) {
-                            Text("Add")
+                            Text(stringResource(R.string.add))
                         }
 
                         Button(
                             onClick = { showDeleteDialog = true },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFb5050b))
                         ) {
-                            Text("Delete")
+                            Text(stringResource(R.string.delete))
                         }
                     }
 
@@ -172,7 +174,7 @@ fun WeekDayPanel(day: Day, viewModel: AvailableHoursViewModel, formData: Availab
             }
 
             Text(
-                text = "Available hours: " + day.hoursFormatted(),
+                text = stringResource(com.example.lessons.R.string.available_hours_label) + day.hoursFormatted(),
             )
         }
 
@@ -200,7 +202,7 @@ fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayName: String
                     .padding(16.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Choose time for $dayName", fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(R.string.choose_time_for_day, dayName), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(10.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -242,7 +244,7 @@ fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayName: String
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Gray),
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("Close")
+                            Text(stringResource(R.string.close_dialog))
                         }
                         
                         Button(
@@ -263,7 +265,7 @@ fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayName: String
                             colors = ButtonDefaults.buttonColors(Color(0xFF57B9FF)),
                             modifier = Modifier.weight(1f)
                         ) {
-                            Text("Add")
+                            Text(stringResource(R.string.add))
                         }
                     }
                 }
@@ -287,7 +289,7 @@ fun DeleteHourDialog(showDialog: Boolean, onDismiss: () -> Unit, day: Day, viewM
                     .fillMaxWidth()
             ) {
                 Column {
-                    Text(text = "Delete hours", fontSize = 26.sp, fontWeight = FontWeight.Bold)
+                    Text(text = stringResource(R.string.delete_hours_dialog), fontSize = 26.sp, fontWeight = FontWeight.Bold)
                     day.hours?.forEachIndexed { index, hour ->
                         Row(
                             modifier = Modifier
@@ -321,16 +323,16 @@ fun ConfirmDelete(showDialog: Boolean, onDismiss: () -> Unit, onConfirm: () -> U
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { onDismiss() },
-            title = { Text("Confirm Action") },
-            text = { Text("Are you sure you want delete this hour?") },
+            title = { Text(stringResource(R.string.confirm_action)) },
+            text = { Text(stringResource(R.string.confirm_delete_hour)) },
             confirmButton = {
                 TextButton(onClick = { onConfirm(); onDismiss() }) {
-                    Text("Confirm")
+                    Text(stringResource(R.string.confirm))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { onDismiss() }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -357,7 +359,7 @@ fun TimePicker(onTimeSelected: (Int, Int) -> Unit, selectedHour: Int?, selectedM
     }
 
     Text(
-        text = if (startingHour) "Starting hour: $timeFormatted" else "Ending hour: $timeFormatted",
+        text = if (startingHour) stringResource(R.string.starting_hour, timeFormatted) else stringResource(R.string.ending_hour, timeFormatted),
         modifier = Modifier.padding(bottom = 10.dp)
     )
     Button(
@@ -365,7 +367,7 @@ fun TimePicker(onTimeSelected: (Int, Int) -> Unit, selectedHour: Int?, selectedM
         shape = RoundedCornerShape(30),
     ) {
         Text(
-            text = "Choose time",
+            text = stringResource(R.string.choose_time_button),
             fontSize = 16.sp
         )
     }
