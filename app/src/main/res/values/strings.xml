@@ -209,4 +209,6 @@
     <string name="something_went_wrong">Something went wrong. Please try again</string>
     <string name="updated_hours_success">Updated hours successfully</string>
     <string name="error_updating_hours">Error occurred while updating</string>
+    <string name="request_successful">Request sent succesfully</string>
+    <string name="rate_succesful">Dodano ocenę</string>
 </resources>

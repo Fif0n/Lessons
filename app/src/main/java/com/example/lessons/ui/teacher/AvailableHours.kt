@@ -2,6 +2,8 @@ package com.example.lessons.ui.teacher
 
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -41,17 +43,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.lessons.models.Day
-import com.example.lessons.models.TimeRange
 import com.example.lessons.ui.teacher.navigation.Screen
 import com.example.lessons.viewModels.teacher.AvailableHoursFormData
 import com.example.lessons.viewModels.teacher.AvailableHoursViewModel
 import com.example.lessons.viewModels.teacher.PanelViewModel
 import kotlinx.coroutines.launch
+import java.time.DayOfWeek
+import java.time.format.TextStyle
 import java.util.Calendar
+import java.util.Locale
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AvailableHours(navController: NavController, viewModel: AvailableHoursViewModel, panelViewModel: PanelViewModel) {
     val formData by viewModel.formData.collectAsState()
@@ -117,11 +121,12 @@ fun AvailableHours(navController: NavController, viewModel: AvailableHoursViewMo
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun WeekDayPanel(day: Day, viewModel: AvailableHoursViewModel, formData: AvailableHoursFormData, panelViewModel: PanelViewModel) {
     var showDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
-    val dayNamePicking by remember { mutableStateOf(day.dayName) }
+    val dayNumber by remember { mutableStateOf(day.dayNumber) }
 
     Row(
         modifier = Modifier
@@ -138,8 +143,9 @@ fun WeekDayPanel(day: Day, viewModel: AvailableHoursViewModel, formData: Availab
                     .padding(bottom = 10.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
+                val locale = Locale.getDefault()
                 Text(
-                    text = day.dayName,
+                    text = DayOfWeek.of(dayNumber).getDisplayName(TextStyle.FULL, locale).replaceFirstChar { it.titlecase(Locale.getDefault()) },
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     modifier = Modifier
@@ -180,12 +186,13 @@ fun WeekDayPanel(day: Day, viewModel: AvailableHoursViewModel, formData: Availab
 
     }
 
-    TimePickerDialog(showDialog, { showDialog = false }, dayNamePicking, viewModel)
+    TimePickerDialog(showDialog, { showDialog = false }, dayNumber, viewModel)
     DeleteHourDialog(showDeleteDialog, { showDeleteDialog = false}, day, viewModel, formData, panelViewModel)
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayName: String, viewModel: AvailableHoursViewModel) {
+fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayNumber: Int, viewModel: AvailableHoursViewModel) {
     var startingHour by remember { mutableStateOf<Int?>(null) }
     var endingHour by remember { mutableStateOf<Int?>(null) }
     var startingMinute by remember { mutableStateOf<Int?>(null) }
@@ -202,7 +209,8 @@ fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayName: String
                     .padding(16.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = stringResource(R.string.choose_time_for_day, dayName), fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                    val locale = Locale.getDefault()
+                    Text(text = stringResource(R.string.choose_time_for_day, DayOfWeek.of(dayNumber).getDisplayName(TextStyle.FULL, locale).replaceFirstChar { it.titlecase(Locale.getDefault()) }), fontSize = 22.sp, fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(10.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -250,7 +258,7 @@ fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayName: String
                         Button(
                             onClick = {
                                 if (startingHour != null && startingMinute != null && endingHour != null && endingMinute != null) {
-                                    val result = viewModel.setHours(dayName, startingHour!!, startingMinute!!, endingHour!!, endingMinute!!)
+                                    val result = viewModel.setHours(dayNumber, startingHour!!, startingMinute!!, endingHour!!, endingMinute!!)
                                     if (result) {
                                         startingHour = null
                                         startingMinute = null

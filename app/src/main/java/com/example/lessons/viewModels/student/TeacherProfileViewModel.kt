@@ -5,6 +5,8 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lessons.models.Hour
@@ -102,9 +104,9 @@ class TeacherProfileViewModel(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun setAvailableHours(date: String, dayName: String) {
+    suspend fun setAvailableHours(date: String, dayNumber: Int) {
         viewModelScope.launch {
-            val availableRanges = getAvailableHours(dayName)
+            val availableRanges = getAvailableHours(dayNumber)
             val takenSlots = getTakenHours(date)
 
             if (_userData.value?.lessonLength != null && availableRanges != null) {
@@ -117,7 +119,6 @@ class TeacherProfileViewModel(
             } else {
                 _availableHours.value = null
             }
-
 
             setEnums()
         }
@@ -189,10 +190,10 @@ class TeacherProfileViewModel(
         }
     }
 
-    private fun getAvailableHours(dayName: String): List<Pair<String, String>>? {
+    private fun getAvailableHours(dayNumber: Int): List<Pair<String, String>>? {
         val days = userData.value?.availableHours?.dayOfWeek
 
-        val day = days?.find { it.dayName == dayName }
+        val day = days?.find { it.dayNumber == dayNumber }
 
         if (day?.hours == null) {
             return null
@@ -333,7 +334,7 @@ class TeacherProfileViewModel(
                 val response = apiService.postRating(body)
 
                 if (response.status == "success") {
-                    Toast.makeText(context, "Rating send successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, stringResource(com.example.lessons.R.string.rate_succesful), Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
                 }

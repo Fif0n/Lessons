@@ -211,4 +211,6 @@
     <string name="something_went_wrong">Coś poszło nie tak. Spróbuj ponownie</string>
     <string name="updated_hours_success">Godziny zostały zaktualizowane pomyślnie</string>
     <string name="error_updating_hours">Błąd podczas aktualizacji</string>
+    <string name="request_successful">Pomyślnie wysłano zapytanie</string>
+    <string name="rate_succesful">Dodano ocenę</string>
 </resources>

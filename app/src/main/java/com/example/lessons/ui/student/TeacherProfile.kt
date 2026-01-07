@@ -75,6 +75,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.format.TextStyle
 import java.util.Calendar
 import java.util.Locale
 
@@ -255,9 +258,10 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                             Spacer(modifier = Modifier.height(10.dp))
 
                             if (teacher.availableHours?.dayOfWeek != null) {
+                                val locale = Locale.getDefault()
                                 teacher.availableHours.dayOfWeek.forEach { day ->
                                     Text(
-                                        text = stringResource(com.example.lessons.R.string.day_hours_format, day.dayName, day.hoursFormatted()),
+                                        text = stringResource(com.example.lessons.R.string.day_hours_format, DayOfWeek.of(day.dayNumber).getDisplayName(TextStyle.FULL, locale).replaceFirstChar { it.titlecase(Locale.getDefault()) }, day.hoursFormatted()),
                                         fontSize = 16.sp,
                                         modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                                     )
@@ -593,14 +597,11 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                     val calendar = Calendar.getInstance()
 
                     var selectedDate by remember { mutableStateOf<String?>(null) }
-                    var dayName by remember { mutableStateOf<String?>(null) }
+                    var dayNumber by remember { mutableStateOf<Int?>(null) }
 
-                    fun getDayName(year: Int, month: Int, day: Int): String {
-                        val dateFormat = SimpleDateFormat("EEEE", Locale.getDefault())
-                        val date = Calendar.getInstance().apply {
-                            set(year, month, day)
-                        }.time
-                        return dateFormat.format(date)
+                    fun getDayNumber(year: Int, month: Int, day: Int): Int {
+                        val date = LocalDate.of(year, month + 1, day)
+                        return date.dayOfWeek.value
                     }
 
                     val datePickerDialog = DatePickerDialog(
@@ -609,7 +610,7 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                             val dayFormatted = if (dayOfMonth < 10) "0$dayOfMonth" else dayOfMonth
                             val monthFormatted = if (month + 1 < 10) "0${month + 1}" else month + 1
                             selectedDate = "$year-${monthFormatted}-$dayFormatted"
-                            dayName = getDayName(year, month, dayOfMonth)
+                            dayNumber = getDayNumber(year, month, dayOfMonth)
                         },
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
@@ -640,10 +641,10 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                             style = MaterialTheme.typography.bodyLarge
                         )
 
-                        if (selectedDate != null && dayName != null) {
+                        if (selectedDate != null && dayNumber != null) {
                             val times by viewModel.availableHours.collectAsState()
                             CoroutineScope(Dispatchers.IO).launch {
-                                viewModel.setAvailableHours(selectedDate!!, dayName!!)
+                                viewModel.setAvailableHours(selectedDate!!, dayNumber!!)
                             }
 
                             times?.let {
