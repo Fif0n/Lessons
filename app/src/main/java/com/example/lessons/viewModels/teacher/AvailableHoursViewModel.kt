@@ -31,22 +31,10 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
         }
     }
 
-    private fun getWeekDays(): List<String> {
-        return listOf(
-            context.getString(R.string.monday),
-            context.getString(R.string.tuesday),
-            context.getString(R.string.wednesday),
-            context.getString(R.string.thursday),
-            context.getString(R.string.friday),
-            context.getString(R.string.saturday),
-            context.getString(R.string.sunday)
-        )
-    }
-
     private fun setDefaultAvailableHours() {
         val defaultData = mutableListOf<Day>()
-        getWeekDays().forEach {
-            defaultData.add(Day(it, emptyList()))
+        for (i in 1..7) {
+            defaultData.add(Day(i, emptyList()))
         }
 
         _formData.value = _formData.value.copy(
@@ -64,7 +52,7 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
         }
     }
 
-    fun setHours(dayName: String, startingHour: Int, startingMinute: Int, endingHour: Int, endingMinute: Int): Boolean {
+    fun setHours(dayNumber: Int, startingHour: Int, startingMinute: Int, endingHour: Int, endingMinute: Int): Boolean {
         if (startingHour > endingHour) {
             setError(context.getString(R.string.starting_time_greater_error))
             return false
@@ -79,7 +67,7 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
             currentData.copy(
                 availableHours = currentData.availableHours?.copy(
                     dayOfWeek = currentData.availableHours.dayOfWeek?.map { day ->
-                        if (day.dayName == dayName) {
+                        if (day.dayNumber == dayNumber) {
                             val newTimeRange = TimeRange(
                                 hourFrom = Hour(startingHour, startingMinute),
                                 hourTo = Hour(endingHour, endingMinute)
@@ -134,14 +122,14 @@ class AvailableHoursViewModel(private val repository: UserRepository, val contex
 
     fun deleteHour(day: Day, index: Int) {
         day.hours = day.hours?.toMutableList()?.apply {
-            if (index in indices) removeAt(index) // Check if index is valid
+            if (index in indices) removeAt(index)
         }
 
         _formData.update { currentData ->
             currentData.copy(
                 availableHours = currentData.availableHours?.copy(
                     dayOfWeek = currentData.availableHours.dayOfWeek?.map { d ->
-                        if (d.dayName == day.dayName) {
+                        if (d.dayNumber == day.dayNumber) {
                             day.copy(
                                 hours = day.hours
                             )

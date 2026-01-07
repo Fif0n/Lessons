@@ -1,4 +1,6 @@
 package com.example.lessons.utils
 
-class UiEvent {
+sealed class UiEvent {
+    data class ShowMessage(val messageResId: Int) : UiEvent()
+    data class ShowText(val text: String) : UiEvent()
 }

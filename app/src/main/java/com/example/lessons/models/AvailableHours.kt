@@ -33,7 +33,7 @@ data class TimeRange(
 }
 
 data class Day(
-    val dayName: String,
+    val dayNumber: Int,
     var hours: List<TimeRange>?
 ) {
     fun hoursFormatted(): String {
