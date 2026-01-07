@@ -61,7 +61,6 @@ class ProfileSettingsViewModel(
                 } else {
                     if (it.status == "success") {
                         selectedImageUri.value = uri
-                        Toast.makeText(context, "Avatar uploaded", Toast.LENGTH_SHORT).show()
                         onDismiss()
                     } else {
                         setUploadError("Something went wrong while uploading image. Please try again")

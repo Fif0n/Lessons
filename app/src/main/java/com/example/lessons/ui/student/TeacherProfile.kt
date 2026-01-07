@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Build
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -38,6 +38,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -46,11 +47,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.res.stringResource
@@ -64,6 +63,7 @@ import com.example.lessons.models.User
 import com.example.lessons.ui.student.navigation.Screen
 import com.example.lessons.ui.student.uiComponents.InputField
 import com.example.lessons.ui.student.uiComponents.SingleSelect
+import com.example.lessons.utils.UiEvent
 import com.example.lessons.viewModels.student.TeacherProfileViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -74,7 +74,9 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.format.TextStyle
 import java.util.Calendar
 import java.util.Locale
 
@@ -255,9 +257,10 @@ fun TeacherProfile(navController: NavController, viewModel: TeacherProfileViewMo
                             Spacer(modifier = Modifier.height(10.dp))
 
                             if (teacher.availableHours?.dayOfWeek != null) {
+                                val locale = Locale.getDefault()
                                 teacher.availableHours.dayOfWeek.forEach { day ->
                                     Text(
-                                        text = stringResource(com.example.lessons.R.string.day_hours_format, day.dayName, day.hoursFormatted()),
+                                        text = stringResource(com.example.lessons.R.string.day_hours_format, DayOfWeek.of(day.dayNumber).getDisplayName(TextStyle.FULL, locale).replaceFirstChar { it.titlecase(Locale.getDefault()) }, day.hoursFormatted()),
                                         fontSize = 16.sp,
                                         modifier = Modifier.padding(top = 2.dp, bottom = 2.dp)
                                     )
@@ -443,13 +446,13 @@ fun RateTeacherDialog(showDialog: Boolean, viewModel: TeacherProfileViewModel, t
                         ) {
                             Text(stringResource(com.example.lessons.R.string.cancel))
                         }
-                        val context = LocalContext.current
+
                         Button(
                             onClick = {
                                 if (ratingModel == null) {
-                                    viewModel.postRating(teacherId, rating, rateText, context)
+                                    viewModel.postRating(teacherId, rating, rateText)
                                 } else {
-                                    viewModel.editRating(ratingModel!!._id, rating, rateText, context)
+                                    viewModel.editRating(ratingModel!!._id, rating, rateText)
                                 }
 
                                 onDismiss()
@@ -593,14 +596,11 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                     val calendar = Calendar.getInstance()
 
                     var selectedDate by remember { mutableStateOf<String?>(null) }
-                    var dayName by remember { mutableStateOf<String?>(null) }
+                    var dayNumber by remember { mutableStateOf<Int?>(null) }
 
-                    fun getDayName(year: Int, month: Int, day: Int): String {
-                        val dateFormat = SimpleDateFormat("EEEE", Locale.getDefault())
-                        val date = Calendar.getInstance().apply {
-                            set(year, month, day)
-                        }.time
-                        return dateFormat.format(date)
+                    fun getDayNumber(year: Int, month: Int, day: Int): Int {
+                        val date = LocalDate.of(year, month + 1, day)
+                        return date.dayOfWeek.value
                     }
 
                     val datePickerDialog = DatePickerDialog(
@@ -609,7 +609,7 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                             val dayFormatted = if (dayOfMonth < 10) "0$dayOfMonth" else dayOfMonth
                             val monthFormatted = if (month + 1 < 10) "0${month + 1}" else month + 1
                             selectedDate = "$year-${monthFormatted}-$dayFormatted"
-                            dayName = getDayName(year, month, dayOfMonth)
+                            dayNumber = getDayNumber(year, month, dayOfMonth)
                         },
                         calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),
@@ -640,10 +640,10 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                             style = MaterialTheme.typography.bodyLarge
                         )
 
-                        if (selectedDate != null && dayName != null) {
+                        if (selectedDate != null && dayNumber != null) {
                             val times by viewModel.availableHours.collectAsState()
                             CoroutineScope(Dispatchers.IO).launch {
-                                viewModel.setAvailableHours(selectedDate!!, dayName!!)
+                                viewModel.setAvailableHours(selectedDate!!, dayNumber!!)
                             }
 
                             times?.let {

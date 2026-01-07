@@ -127,7 +127,7 @@ fun Navigation(navController: NavHostController, panelViewModel: PanelViewModel,
             UpdatePassword(navController, viewModel)
         }
         composable(route = Screen.LessonsSettings.route) {
-            val viewModel = LessonsSettingViewModel(UserRepository(content), content)
+            val viewModel = LessonsSettingViewModel(UserRepository(content))
             LessonsSettings(navController, viewModel, panelViewModel)
         }
         composable(route = Screen.LessonRequest.route) { backStackEntry ->

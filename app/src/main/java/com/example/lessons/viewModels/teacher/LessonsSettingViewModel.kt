@@ -2,18 +2,22 @@ package com.example.lessons.viewModels.teacher
 
 import android.content.Context
 import android.location.Geocoder
-import android.widget.Toast
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lessons.R
 import com.example.lessons.models.Location
 import com.example.lessons.modules.backendApi.responses.LessonsSettingsResponse
 import com.example.lessons.repositories.UserRepository
+import com.example.lessons.utils.UiEvent
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.util.Locale
 
-class LessonsSettingViewModel(private val repository: UserRepository, val context: Context): ViewModel() {
+class LessonsSettingViewModel(private val repository: UserRepository): ViewModel() {
     private val _formData = MutableStateFlow<LessonsSettingsFormData>(LessonsSettingsFormData())
     val formData: StateFlow<LessonsSettingsFormData> = _formData
 
@@ -47,6 +51,12 @@ class LessonsSettingViewModel(private val repository: UserRepository, val contex
     var addressError = MutableStateFlow<String?>(null)
         private set
 
+    private val _uiEvent = MutableStateFlow<UiEvent?>(null)
+    val uiEvent: StateFlow<UiEvent?> = _uiEvent
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     init {
         viewModelScope.launch {
             val response = repository.getLessonsSettings()
@@ -74,7 +84,7 @@ class LessonsSettingViewModel(private val repository: UserRepository, val contex
         )
     }
 
-    fun getLatLngFromAddress(address: String): Pair<Double, Double>? {
+    fun getLatLngFromAddress(address: String, context: Context): Pair<Double, Double>? {
         return try {
             val geocoder = Geocoder(context, Locale.getDefault())
             val addresses = geocoder.getFromLocationName(address, 1)
@@ -93,21 +103,25 @@ class LessonsSettingViewModel(private val repository: UserRepository, val contex
         )
     }
 
-    suspend fun updateLessonsData(formData: LessonsSettingsFormData, panelViewModel: PanelViewModel) {
+    fun updateLessonsData(formData: LessonsSettingsFormData, panelViewModel: PanelViewModel) {
         viewModelScope.launch {
+            _isLoading.value = true
             clearError()
+            val response = try {
+                repository.updateUserLessonsSetting(formData)
+            } catch (e: Exception) {
+                null
+            }
 
-            val response = repository.updateUserLessonsSetting(formData)
+            _isLoading.value = false
 
             if (response == null) {
-                Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
-            } else {
-                if (response.status == "success") {
-                    Toast.makeText(context, "Settings updated", Toast.LENGTH_SHORT).show()
-                    panelViewModel.checkVerification()
-                } else if (response.data.data != null) {
-                    setErrors(response.data.data)
-                }
+                _uiEvent.value = UiEvent.ShowMessage(R.string.error)
+            } else if (response.status == "success") {
+                _uiEvent.value = UiEvent.ShowMessage(R.string.settings_updated)
+                panelViewModel.checkVerification()
+            } else if (response.data.data != null) {
+                setErrors(response.data.data)
             }
         }
     }
@@ -147,6 +161,10 @@ class LessonsSettingViewModel(private val repository: UserRepository, val contex
             lessonsPlatform = response.data.user.lessonsPlatform ?: "",
             location = response.data.user.location
         )
+    }
+
+    fun clearUiEvent() {
+        _uiEvent.value = null
     }
 }
 

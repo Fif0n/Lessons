@@ -93,7 +93,7 @@
     <string name="teacher_location_label">Teacher location: %1$s</string>
     <string name="lesson_length_label">Lesson length: %1$s min</string>
     <string name="lesson_cost_label">Lesson cost: %1$s $</string>
-    <string name="available_hours_label">Available hours:</string>
+    <string name="available_hours_label">Available hours: </string>
     <string name="day_hours_format">%1$s: %2$s</string>
     <string name="show_location_on_map">Show location on map</string>
     <string name="send_request_for_lesson">Send request for lesson</string>
@@ -195,7 +195,7 @@
     <string name="auth_role_name_student">student</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
-    <string name="choose_time_for_day">Choose time for %1$s</string>
+    <string name="choose_time_for_day">Choose time for - %1$s</string>
     <string name="delete_hours_dialog">Delete hours</string>
     <string name="confirm_action">Confirm Action</string>
     <string name="confirm_delete_hour">Are you sure you want delete this hour?</string>
@@ -209,4 +209,10 @@
     <string name="something_went_wrong">Something went wrong. Please try again</string>
     <string name="updated_hours_success">Updated hours successfully</string>
     <string name="error_updating_hours">Error occurred while updating</string>
+    <string name="request_successful">Request sent succesfully</string>
+    <string name="rate_succesful">Dodano ocenę</string>
+    <string name="error">Something went wrong. Try again later</string>
+    <string name="service_unavailable">Service is currently unavailable. Try again later</string>
+    <string name="rating_updated">Rating has been updated</string>
+    <string name="settings_updated">Settings has been updated</string>
 </resources>

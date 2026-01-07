@@ -2,8 +2,6 @@ package com.example.lessons.viewModels.student
 
 import android.content.Context
 import android.os.Build
-import android.util.Log
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,9 +16,12 @@ import com.example.lessons.modules.backendApi.requests.LessonRequestRequest
 import com.example.lessons.modules.backendApi.requests.PostRatingRequest
 import com.example.lessons.modules.backendApi.responses.LessonRequestResponse
 import com.example.lessons.modules.backendApi.responses.RatingResponse
+import com.example.lessons.utils.UiEvent
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.time.LocalDate
@@ -79,6 +80,9 @@ class TeacherProfileViewModel(
     var canSendRating: Boolean = false
         private set
 
+    private val _uiEvent = MutableSharedFlow<UiEvent>()
+    val uiEvent = _uiEvent.asSharedFlow()
+
     init {
         viewModelScope.launch {
             if (id != null) {
@@ -102,9 +106,9 @@ class TeacherProfileViewModel(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun setAvailableHours(date: String, dayName: String) {
+    suspend fun setAvailableHours(date: String, dayNumber: Int) {
         viewModelScope.launch {
-            val availableRanges = getAvailableHours(dayName)
+            val availableRanges = getAvailableHours(dayNumber)
             val takenSlots = getTakenHours(date)
 
             if (_userData.value?.lessonLength != null && availableRanges != null) {
@@ -117,7 +121,6 @@ class TeacherProfileViewModel(
             } else {
                 _availableHours.value = null
             }
-
 
             setEnums()
         }
@@ -189,10 +192,10 @@ class TeacherProfileViewModel(
         }
     }
 
-    private fun getAvailableHours(dayName: String): List<Pair<String, String>>? {
+    private fun getAvailableHours(dayNumber: Int): List<Pair<String, String>>? {
         val days = userData.value?.availableHours?.dayOfWeek
 
-        val day = days?.find { it.dayName == dayName }
+        val day = days?.find { it.dayNumber == dayNumber }
 
         if (day?.hours == null) {
             return null
@@ -250,7 +253,7 @@ class TeacherProfileViewModel(
 
                 if (response != null) {
                     if (response.status == "success") {
-                        Toast.makeText(context, "Request send successfully", Toast.LENGTH_SHORT).show()
+                        _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.request_successful))
                         clearFields()
                         onSuccess()
                         _availableHours.value = null
@@ -258,10 +261,10 @@ class TeacherProfileViewModel(
                         if (response.data?.data != null) {
                             setErrors(response.data.data)
                         }
-                        Toast.makeText(context, "Something went wrong. Try again later", Toast.LENGTH_SHORT).show()
+                        _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.error))
                     }
                 } else {
-                    Toast.makeText(context, "Service is currently unavailable. Try again later", Toast.LENGTH_SHORT).show()
+                    _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.service_unavailable))
                 }
             }
         }
@@ -321,54 +324,46 @@ class TeacherProfileViewModel(
         }
     }
 
-    fun postRating(teacherId: String, rating: Float, text: String?, context: Context) {
+    fun postRating(teacherId: String, rating: Float, text: String?) {
         viewModelScope.launch {
-            val body = PostRatingRequest(
-                teacherId,
-                rating,
-                text
-            )
+            val body = PostRatingRequest(teacherId, rating, text)
 
             try {
                 val response = apiService.postRating(body)
 
                 if (response.status == "success") {
-                    Toast.makeText(context, "Rating send successfully", Toast.LENGTH_SHORT).show()
+                    _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.rate_succesful))
                 } else {
-                    Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
+                    _uiEvent.emit(UiEvent.ShowText("Something went wrong. Please try again"))
                 }
             } catch (e: HttpException) {
                 val errorBody = e.response()?.errorBody()?.string()
                 val error = Gson().fromJson(errorBody, RatingResponse::class.java)
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                _uiEvent.emit(UiEvent.ShowText(error.message!!))
             } catch (e: Throwable) {
-                Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
+                _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.service_unavailable))
             }
         }
     }
 
-    fun editRating(id: String, rating: Float, text: String?, context: Context) {
+    fun editRating(id: String, rating: Float, text: String?) {
         viewModelScope.launch {
-            val body = EditRatingRequest(
-                rating,
-                text
-            )
+            val body = EditRatingRequest(rating, text)
 
             try {
                 val response = apiService.updateRating(id, body)
 
                 if (response.status == "success") {
-                    Toast.makeText(context, "Rating has been updated", Toast.LENGTH_SHORT).show()
+                    _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.rating_updated))
                 } else {
-                    Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
+                    _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.error))
                 }
             } catch (e: HttpException) {
                 val errorBody = e.response()?.errorBody()?.string()
                 val error = Gson().fromJson(errorBody, RatingResponse::class.java)
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                _uiEvent.emit(UiEvent.ShowText(error.message!!))
             } catch (e: Throwable) {
-                Log.d("ErrorSend", e.toString())
-                Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
+                _uiEvent.emit(UiEvent.ShowMessage(com.example.lessons.R.string.service_unavailable))
             }
         }
     }

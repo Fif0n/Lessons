@@ -95,7 +95,7 @@
     <string name="teacher_location_label">Lokalizacja nauczyciela: %1$s</string>
     <string name="lesson_length_label">Długość lekcji: %1$s min</string>
     <string name="lesson_cost_label">Koszt lekcji: %1$s $</string>
-    <string name="available_hours_label">Dostępne godziny:</string>
+    <string name="available_hours_label">Dostępne godziny: </string>
     <string name="day_hours_format">%1$s: %2$s</string>
     <string name="show_location_on_map">Pokaż lokalizację na mapie</string>
     <string name="send_request_for_lesson">Wyślij prośbę o lekcję</string>
@@ -197,7 +197,7 @@
     <string name="auth_role_name_student">studentem</string>
     <string name="add">Dodaj</string>
     <string name="delete">Usuń</string>
-    <string name="choose_time_for_day">Wybierz czas dla %1$s</string>
+    <string name="choose_time_for_day">Wybierz czas dla - %1$s</string>
     <string name="delete_hours_dialog">Usuń godziny</string>
     <string name="confirm_action">Potwierdź akcję</string>
     <string name="confirm_delete_hour">Czy na pewno chcesz usunąć tę godzinę?</string>
@@ -211,4 +211,10 @@
     <string name="something_went_wrong">Coś poszło nie tak. Spróbuj ponownie</string>
     <string name="updated_hours_success">Godziny zostały zaktualizowane pomyślnie</string>
     <string name="error_updating_hours">Błąd podczas aktualizacji</string>
+    <string name="request_successful">Pomyślnie wysłano zapytanie</string>
+    <string name="rate_succesful">Dodano ocenę</string>
+    <string name="error">Wystąpił nieoczekiwany błąd. Spróbuj ponownie</string>
+    <string name="service_unavailable">Serwer aktualnie nie odpowiada. Spróbuj ponownie później</string>
+    <string name="rating_updated">Zaktualizowano ocenę</string>
+    <string name="settings_updated">Zaktualizowano ustawienia</string>
 </resources>

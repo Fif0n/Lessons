@@ -1,6 +1,7 @@
 package com.example.lessons.ui.teacher
 
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
@@ -53,12 +56,12 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import kotlinx.coroutines.launch
 import com.example.lessons.R
+import com.example.lessons.utils.UiEvent
 
 @RequiresApi(35)
 @Composable
 fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewModel, panelViewModel: PanelViewModel) {
-    var loading by remember { mutableStateOf(false) }
-    val coroutineScope = rememberCoroutineScope()
+    val loading by viewModel.isLoading.collectAsState()
 
     val formData by viewModel.formData.collectAsState()
     val schoolLevelEnum by viewModel.schoolLevelEnum.collectAsState()
@@ -72,6 +75,18 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
     val lessonLengthError by viewModel.lessonLengthError.collectAsState()
     val lessonsPlatformError by viewModel.lessonsPlatformError.collectAsState()
     val addressError by viewModel.addressError.collectAsState()
+
+    val context = LocalContext.current
+
+    val uiEvent by viewModel.uiEvent.collectAsState()
+
+    uiEvent?.let { event ->
+        when (event) {
+            is UiEvent.ShowMessage -> Toast.makeText(context, context.getString(event.messageResId), Toast.LENGTH_SHORT).show()
+            is UiEvent.ShowText -> Toast.makeText(context, event.text, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.clearUiEvent()
+    }
 
     Column(
         Modifier
@@ -92,7 +107,6 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
                 .fillMaxWidth()
                 .padding(30.dp)
         ) {
-            Log.d("FormDataValues", formData.toString())
             MultiSelect(schoolLevelEnum, stringResource(R.string.school_level_label), schoolLevelError, viewModel::updateFormFieldMap, "schoolLevel", formData.schoolLevel)
             Spacer(modifier = Modifier.size(10.dp))
 
@@ -140,14 +154,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
 
             Button(
                 onClick = {
-                    coroutineScope.launch {
-                        loading = true
-                        try {
-                            viewModel.updateLessonsData(formData, panelViewModel)
-                        } finally {
-                            loading = false
-                        }
-                    }
+                    viewModel.updateLessonsData(formData, panelViewModel)
                 },
                 shape = RoundedCornerShape(30),
                 modifier = Modifier
@@ -219,10 +226,10 @@ fun LocalizationSelect(viewModel: LessonsSettingViewModel, formData: LessonsSett
             style = MaterialTheme.typography.bodySmall
         )
     }
-
+    val context = LocalContext.current
     Button(
         onClick = {
-            val location = viewModel.getLatLngFromAddress(address)
+            val location = viewModel.getLatLngFromAddress(address, context)
             location?.let {
                 latLng = LatLng(it.first, it.second)
                 val locationObject = Location(listOf(it.first, it.second), address)
