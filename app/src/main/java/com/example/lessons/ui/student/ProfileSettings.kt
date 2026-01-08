@@ -2,6 +2,7 @@ package com.example.lessons.ui.student
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -40,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -51,11 +53,22 @@ import com.example.lessons.R
 import com.example.lessons.ui.student.navigation.Screen
 import com.example.lessons.viewModels.student.ProfileSettingsViewModel
 import androidx.compose.ui.res.stringResource
+import com.example.lessons.utils.UiEvent
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun ProfileSettings(navController: NavController, viewModel: ProfileSettingsViewModel) {
     var showDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val uiEvent by viewModel.uiEvent.collectAsState()
+
+    uiEvent?.let { event ->
+        when (event) {
+            is UiEvent.ShowMessage -> Toast.makeText(context, context.getString(event.messageResId), Toast.LENGTH_SHORT).show()
+            is UiEvent.ShowText -> Toast.makeText(context, event.text, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.clearUiEvent()
+    }
 
     Column(
         Modifier.fillMaxSize(),

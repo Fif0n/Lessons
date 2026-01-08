@@ -5,8 +5,11 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lessons.R
 import com.example.lessons.repositories.UploadAvatarRepository
+import com.example.lessons.utils.UiEvent
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ProfileSettingsViewModel(
@@ -20,6 +23,9 @@ class ProfileSettingsViewModel(
 
     var uploadImageError = MutableStateFlow<String?>(null)
         private set
+
+    private val _uiEvent = MutableStateFlow<UiEvent?>(null)
+    val uiEvent: StateFlow<UiEvent?> = _uiEvent
 
     init {
         viewModelScope.launch {
@@ -42,7 +48,7 @@ class ProfileSettingsViewModel(
                 } else {
                     if (it.status == "success") {
                         selectedImageUri.value = uri
-                        Toast.makeText(context, "Avatar uploaded", Toast.LENGTH_SHORT).show()
+                        _uiEvent.value = UiEvent.ShowMessage(R.string.avatar_updated)
                         onDismiss()
                     } else {
                         setUploadError("Something went wrong while uploading image. Please try again")
@@ -54,5 +60,9 @@ class ProfileSettingsViewModel(
 
     private fun setUploadError(error: String) {
         uploadImageError.value = error
+    }
+
+    fun clearUiEvent() {
+        _uiEvent.value = null
     }
 }

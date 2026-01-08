@@ -1,5 +1,6 @@
 package com.example.lessons.ui.teacher
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,11 +33,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.lessons.ui.teacher.navigation.Screen
+import com.example.lessons.utils.UiEvent
 import com.example.lessons.viewModels.teacher.PanelViewModel
 import com.example.lessons.viewModels.teacher.UpdateBasicDataViewModel
 import kotlinx.coroutines.launch
@@ -56,6 +59,18 @@ fun UpdateBasicData(navController: NavController, viewModel: UpdateBasicDataView
 
     fun onFieldValueChange(field: String, value: String) {
         viewModel.updateFormField(field, value)
+    }
+
+    val context = LocalContext.current
+
+    val uiEvent by viewModel.uiEvent.collectAsState()
+
+    uiEvent?.let { event ->
+        when (event) {
+            is UiEvent.ShowMessage -> Toast.makeText(context, context.getString(event.messageResId), Toast.LENGTH_SHORT).show()
+            is UiEvent.ShowText -> Toast.makeText(context, event.text, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.clearUiEvent()
     }
 
     Column(

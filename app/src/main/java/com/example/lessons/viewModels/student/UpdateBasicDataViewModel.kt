@@ -4,9 +4,11 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.lessons.R
 import com.example.lessons.models.User
 import com.example.lessons.repositories.UserRepository
 import com.example.lessons.ui.formDatas.BasicFormData
+import com.example.lessons.utils.UiEvent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -27,6 +29,9 @@ class UpdateBasicDataViewModel(private val repository: UserRepository, val conte
         private set
 
     private var user: User? = null
+
+    private val _uiEvent = MutableStateFlow<UiEvent?>(null)
+    val uiEvent: StateFlow<UiEvent?> = _uiEvent
 
     init {
         viewModelScope.launch {
@@ -62,10 +67,10 @@ class UpdateBasicDataViewModel(private val repository: UserRepository, val conte
             val response = repository.updateUser(formData)
 
             if (response == null) {
-                Toast.makeText(context, "Something went wrong. Please try again", Toast.LENGTH_SHORT).show()
+                _uiEvent.value = UiEvent.ShowMessage(R.string.error)
             } else {
                 if (response.status == "success") {
-                    Toast.makeText(context, "Data updated", Toast.LENGTH_SHORT).show()
+                    _uiEvent.value = UiEvent.ShowMessage(R.string.data_updated)
                     updateUser()
                 } else if (response.data.data != null) {
                     setErrors(response.data.data)
@@ -106,6 +111,10 @@ class UpdateBasicDataViewModel(private val repository: UserRepository, val conte
     private fun fillFormData() {
         val formData = createFilledFormData()
         _formData.value = formData
+    }
+
+    fun clearUiEvent() {
+        _uiEvent.value = null
     }
 }
 

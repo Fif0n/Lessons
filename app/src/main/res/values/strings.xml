@@ -215,4 +215,6 @@
     <string name="service_unavailable">Service is currently unavailable. Try again later</string>
     <string name="rating_updated">Rating has been updated</string>
     <string name="settings_updated">Settings has been updated</string>
+    <string name="data_updated">Data has been updated</string>
+    <string name="avatar_updated">Avatar has been updated</string>
 </resources>
