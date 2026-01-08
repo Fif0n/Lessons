@@ -217,4 +217,6 @@
     <string name="service_unavailable">Serwer aktualnie nie odpowiada. Spróbuj ponownie później</string>
     <string name="rating_updated">Zaktualizowano ocenę</string>
     <string name="settings_updated">Zaktualizowano ustawienia</string>
+    <string name="data_updated">Dane zostały zaktualizowane</string>
+    <string name="avatar_updated">Zdjęcie zostało zaktualizowane</string>
 </resources>
