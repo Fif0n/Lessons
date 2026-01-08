@@ -219,4 +219,8 @@
     <string name="settings_updated">Zaktualizowano ustawienia</string>
     <string name="data_updated">Dane zostały zaktualizowane</string>
     <string name="avatar_updated">Zdjęcie zostało zaktualizowane</string>
+    <string name="no_lessons_in_this_week">Brak zajęć w tym tygodniu</string>
+    <string name="with">Z: %1$s</string>
+    <string name="subject">Przedmiot: %1$s</string>
+    <string name="time">Czas: %1$s</string>
 </resources>
