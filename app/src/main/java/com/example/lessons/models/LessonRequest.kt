@@ -14,6 +14,8 @@ data class LessonRequest(
     val lessonPlace: String,
     val dateFormatted: String?,
     val onlineLessonLink: String?,
+    val statusName: String? = null,
+    val lessonPlaceName: String? = null,
 )
 
 data class LessonRequestHours(

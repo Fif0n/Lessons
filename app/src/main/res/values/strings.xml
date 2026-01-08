@@ -143,7 +143,7 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
-    <string name="teacher_label">Teacher:</string>
+    <string name="teacher_label">Teacher: </string>
     <string name="subject_label_lesson">Subject:</string>
     <string name="school_level_label_lesson">School level:</string>
     <string name="lesson_place_label_lesson">Lesson place:</string>
@@ -221,4 +221,5 @@
     <string name="with">With: %1$s</string>
     <string name="subject">Subject: %1$s</string>
     <string name="time">Time: %1$s</string>
+    <string name="accept_lesson_question">Are you sure you want to accept this lesson?</string>
 </resources>

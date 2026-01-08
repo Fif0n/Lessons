@@ -94,7 +94,7 @@
     <string name="online_platform_label">Platforma online: %1$s</string>
     <string name="teacher_location_label">Lokalizacja nauczyciela: %1$s</string>
     <string name="lesson_length_label">Długość lekcji: %1$s min</string>
-    <string name="lesson_cost_label">Koszt lekcji: %1$s $</string>
+    <string name="lesson_cost_label">Koszt lekcji: %1$s zł</string>
     <string name="available_hours_label">Dostępne godziny: </string>
     <string name="day_hours_format">%1$s: %2$s</string>
     <string name="show_location_on_map">Pokaż lokalizację na mapie</string>
@@ -129,7 +129,7 @@
     <string name="drawer_opinions">Opinie o mnie</string>
     <string name="close_button">Zamknij</string>
     <string name="send_lesson_request_title">Wyślij prośbę o lekcję</string>
-    <string name="lesson_price_format">Cena lekcji: %1$s $</string>
+    <string name="lesson_price_format">Cena lekcji: %1$s zł</string>
     <string name="lesson_length_format">Długość lekcji: %1$s min</string>
     <string name="pick_date_button">Wybierz datę</string>
     <string name="selected_date_format">Wybrana data: %1$s</string>
@@ -190,9 +190,9 @@
     <string name="time_label">Czas:</string>
     <string name="teacher_name_surname">Imię/nazwisko nauczyciela</string>
     <string name="estimated_income_current_month">Szacowany przychód w bieżącym miesiącu</string>
-    <string name="current_estimated_income_format">Obecny szacowany przychód: %1$s $</string>
-    <string name="future_estimated_income_format">Przyszły szacowany przychód: %1$s $</string>
-    <string name="total_estimated_income_month_format">Całkowity szacowany przychód w miesiącu: %1$s $</string>
+    <string name="current_estimated_income_format">Obecny szacowany przychód: %1$s zł</string>
+    <string name="future_estimated_income_format">Przyszły szacowany przychód: %1$s zł</string>
+    <string name="total_estimated_income_month_format">Całkowity szacowany przychód w miesiącu: %1$s zł</string>
     <string name="auth_role_name_teacher">nauczycielem</string>
     <string name="auth_role_name_student">studentem</string>
     <string name="add">Dodaj</string>
@@ -223,4 +223,5 @@
     <string name="with">Z: %1$s</string>
     <string name="subject">Przedmiot: %1$s</string>
     <string name="time">Czas: %1$s</string>
+    <string name="accept_lesson_question">Czy na pewno chcesz zaakceptować lekcje?</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.lessons.ui.teacher
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -70,7 +70,7 @@ fun LessonsRequests(navController: NavController, viewModel: LessonRequestsViewM
                     ) {
                         SingleSelect(
                             statusEnum,
-                            "Status",
+                            stringResource(com.example.lessons.R.string.status_label),
                             null,
                             viewModel::updateFormField,
                             "status",
@@ -188,7 +188,7 @@ fun LessonRequestItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Student:",
+                    text = stringResource(com.example.lessons.R.string.student_label),
                     fontSize = 16.sp
                 )
 
@@ -201,7 +201,7 @@ fun LessonRequestItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Subject:",
+                    text = stringResource(com.example.lessons.R.string.subject_label_lesson),
                     fontSize = 16.sp
                 )
                 Text(
@@ -213,7 +213,7 @@ fun LessonRequestItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Time:",
+                    text = stringResource(com.example.lessons.R.string.time_label_request),
                     fontSize = 16.sp
                 )
                 Text(
