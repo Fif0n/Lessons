@@ -248,7 +248,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         var showSendMessageDialog by remember { mutableStateOf(false) }
                         var showSetLessonLinkDialog by remember { mutableStateOf(false) }
 
-                        if (it.status == "Pending") {
+                        if (it.status == "pending") {
                             Button(
                                 onClick = { showAcceptDialog = true },
                                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF32a852)),
@@ -277,7 +277,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                             Text(text = stringResource(R.string.send_message), color = Color.Black)
                         }
 
-                        if (it.lessonPlace == "Online" && it.status == "Accepted") {
+                        if (it.lessonPlace == "Online" && it.status == "accepted") {
                             Button(
                                 onClick = { showSetLessonLinkDialog = true },
                                 border = BorderStroke(1.dp, Color.Black),
