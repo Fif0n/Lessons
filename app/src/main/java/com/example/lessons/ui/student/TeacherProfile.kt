@@ -587,7 +587,7 @@ fun LessonRequestDialog(showDialog: Boolean, user: User, viewModel: TeacherProfi
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    Row {
+                    Column {
                         Text(stringResource(com.example.lessons.R.string.lesson_price_format, user.lessonMoneyRate ?: 0))
                         Text(stringResource(com.example.lessons.R.string.lesson_length_format, user.lessonLength ?: 0))
                     }

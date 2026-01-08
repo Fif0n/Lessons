@@ -114,7 +114,7 @@ abstract class AbstractLoginActivity(
             ) {
                 Text(
                     text = headerTranslation(role),
-                    fontSize = 30.sp,
+                    fontSize = 26.sp,
                     modifier = Modifier
                         .padding(60.dp)
                 )
