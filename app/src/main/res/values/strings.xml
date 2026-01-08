@@ -127,7 +127,7 @@
     <string name="close_button">Close</string>
     <string name="send_lesson_request_title">Send lesson request</string>
     <string name="lesson_price_format">Lesson price: %1$s $</string>
-    <string name="lesson_length_format">Lesson length: %1$s</string>
+    <string name="lesson_length_format">Lesson length: %1$s min</string>
     <string name="pick_date_button">Pick a Date</string>
     <string name="selected_date_format">Selected date: %1$s</string>
     <string name="select_date_button">Select Date</string>

@@ -2,7 +2,6 @@ package com.example.lessons.ui.student
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -265,9 +264,9 @@ fun TeacherItem(
                     text = stringResource(com.example.lessons.R.string.email_format, teacher.email)
                 )
                 Text(
-                    text = stringResource(com.example.lessons.R.string.phone_format, teacher.phoneNumber)
+                    text = stringResource(com.example.lessons.R.string.phone_format, teacher.phoneNumber ?: "-")
                 )
-
+//
                 Row(
                     modifier = Modifier
                         .padding(top = 10.dp, bottom = 10.dp)
@@ -278,7 +277,7 @@ fun TeacherItem(
                             text = stringResource(com.example.lessons.R.string.self_description_label)
                         )
                         Text(
-                            text = teacher.description
+                            text = teacher.description ?: "-"
                         )
                     }
 

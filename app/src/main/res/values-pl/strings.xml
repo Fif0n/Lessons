@@ -130,7 +130,7 @@
     <string name="close_button">Zamknij</string>
     <string name="send_lesson_request_title">Wyślij prośbę o lekcję</string>
     <string name="lesson_price_format">Cena lekcji: %1$s $</string>
-    <string name="lesson_length_format">Długość lekcji: %1$s</string>
+    <string name="lesson_length_format">Długość lekcji: %1$s min</string>
     <string name="pick_date_button">Wybierz datę</string>
     <string name="selected_date_format">Wybrana data: %1$s</string>
     <string name="select_date_button">Wybierz datę</string>
