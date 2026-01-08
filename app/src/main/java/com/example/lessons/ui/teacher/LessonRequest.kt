@@ -114,7 +114,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         fontSize = 18.sp
                     )
                     Text(
-                        text = it.lessonPlace,
+                        text = it.lessonPlaceName ?: "-",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -138,14 +138,14 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         fontSize = 18.sp
                     )
                     Text(
-                        text = it.status,
+                        text = it.statusName ?: "-",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    if (it.lessonPlace == "Online") {
+                    if (it.lessonPlace == "online") {
                         Text(
                             text = stringResource(R.string.lesson_link_label_request),
                             fontSize = 18.sp
@@ -277,7 +277,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                             Text(text = stringResource(R.string.send_message), color = Color.Black)
                         }
 
-                        if (it.lessonPlace == "Online" && it.status == "accepted") {
+                        if (it.lessonPlace == "online" && it.status == "accepted") {
                             Button(
                                 onClick = { showSetLessonLinkDialog = true },
                                 border = BorderStroke(1.dp, Color.Black),
@@ -324,7 +324,7 @@ fun AcceptDialog(showDialog: Boolean, viewModel: LessonRequestViewModel, id: Str
             ) {
                 Column {
                     Text(
-                        text = "Are you sure you want to accept this lesson?",
+                        text = stringResource(com.example.lessons.R.string.accept_lesson_question),
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center
                     )

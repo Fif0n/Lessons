@@ -122,7 +122,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         fontSize = 18.sp
                     )
                     Text(
-                        text = it.lessonPlace,
+                        text = it.lessonPlaceName ?: "-",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -153,7 +153,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    if (it.lessonPlace == "Online") {
+                    if (it.lessonPlace == "online") {
                         Text(
                             text = stringResource(R.string.lesson_link_label_lesson),
                             fontSize = 18.sp

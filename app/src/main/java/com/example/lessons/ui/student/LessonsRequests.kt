@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -69,7 +70,7 @@ fun LessonsRequests(navController: NavController, viewModel: LessonRequestsViewM
                     ) {
                         SingleSelect(
                             statusEnum,
-                            "Status",
+                            stringResource(com.example.lessons.R.string.status_label),
                             null,
                             viewModel::updateFormField,
                             "status",
@@ -113,7 +114,7 @@ fun LessonRequestsList(lessonRequests: LazyPagingItems<LessonRequestDto>, navCon
         if (lessonRequests.loadState.refresh is LoadState.Error) {
             Toast.makeText(
                 context,
-                "Error occurred: " + (lessonRequests.loadState.refresh as LoadState.Error).error.message,
+                (lessonRequests.loadState.refresh as LoadState.Error).error.message,
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -187,7 +188,7 @@ fun LessonRequestItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Teacher:",
+                    text = stringResource(com.example.lessons.R.string.teacher_label),
                     fontSize = 16.sp
                 )
 
@@ -200,7 +201,7 @@ fun LessonRequestItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Subject:",
+                    text = stringResource(com.example.lessons.R.string.subject_label_lesson),
                     fontSize = 16.sp
                 )
                 Text(
@@ -212,7 +213,7 @@ fun LessonRequestItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Time:",
+                    text = stringResource(com.example.lessons.R.string.time_label_request),
                     fontSize = 16.sp
                 )
                 Text(
