@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -137,13 +138,13 @@ fun Calendar(navController: NavController, viewModel: CalendarViewModel) {
                                         modifier = Modifier.padding(4.dp)
                                     ) {
                                         Text(
-                                            text = "With: ${item.student.getFullName()}"
+                                            text = stringResource(com.example.lessons.R.string.with, item.student.getFullName())
                                         )
                                         Text(
-                                            text = "Subject: ${item.subject}"
+                                            text = stringResource(com.example.lessons.R.string.subject, item.subject)
                                         )
                                         Text(
-                                            text = "Time: ${item.dateFormatted} ${item.hours.getHourRangeFormatted()}"
+                                            text = stringResource(com.example.lessons.R.string.time, "${item.dateFormatted} ${item.hours.getHourRangeFormatted()}")
                                         )
                                     }
                                 }
@@ -153,7 +154,7 @@ fun Calendar(navController: NavController, viewModel: CalendarViewModel) {
                 }
             } else {
                 Text(
-                    text = "No lessons in this week",
+                    text = stringResource(com.example.lessons.R.string.no_lessons_in_this_week),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center,
