@@ -210,7 +210,7 @@
     <string name="updated_hours_success">Updated hours successfully</string>
     <string name="error_updating_hours">Error occurred while updating</string>
     <string name="request_successful">Request sent succesfully</string>
-    <string name="rate_succesful">Dodano ocenę</string>
+    <string name="rate_succesful">Rate has been added succesfully</string>
     <string name="error">Something went wrong. Try again later</string>
     <string name="service_unavailable">Service is currently unavailable. Try again later</string>
     <string name="rating_updated">Rating has been updated</string>
