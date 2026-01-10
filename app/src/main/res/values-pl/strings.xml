@@ -224,4 +224,5 @@
     <string name="subject">Przedmiot: %1$s</string>
     <string name="time">Czas: %1$s</string>
     <string name="accept_lesson_question">Czy na pewno chcesz zaakceptować lekcje?</string>
+    <string name="go_to_lesson_request">Przejdź do informacji o zajęciach</string>
 </resources>

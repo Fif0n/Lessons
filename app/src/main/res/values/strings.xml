@@ -222,4 +222,5 @@
     <string name="subject">Subject: %1$s</string>
     <string name="time">Time: %1$s</string>
     <string name="accept_lesson_question">Are you sure you want to accept this lesson?</string>
+    <string name="go_to_lesson_request">Go to lesson request info</string>
 </resources>

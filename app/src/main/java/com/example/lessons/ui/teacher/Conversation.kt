@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -72,7 +73,7 @@ fun Conversation(navController: NavController, viewModel: ConversationViewModel)
                 ) {
                     Column {
                         Text(
-                            text = "Conversation with: ${it.lessonRequest.student.getFullName()}",
+                            text = stringResource(com.example.lessons.R.string.conversation_with, it.lessonRequest.student.getFullName()),
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
@@ -80,7 +81,7 @@ fun Conversation(navController: NavController, viewModel: ConversationViewModel)
                         )
 
                         Text(
-                            text = "Go to lesson request",
+                            text = stringResource(com.example.lessons.R.string.go_to_lesson_request),
                             fontSize = 14.sp,
                             fontWeight = FontWeight.SemiBold,
                             textAlign = TextAlign.Center,
@@ -203,7 +204,7 @@ fun Conversation(navController: NavController, viewModel: ConversationViewModel)
                             onValueChange = { message = it },
                             placeholder = {
                                 Text(
-                                "Message",
+                                    text = stringResource(com.example.lessons.R.string.message_label),
                                     fontSize = 18.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
@@ -231,7 +232,7 @@ fun Conversation(navController: NavController, viewModel: ConversationViewModel)
                             modifier = Modifier.weight(1f).fillMaxSize().padding(start = 4.dp)
                         ) {
                             Text(
-                                text = "Send",
+                                text = stringResource(com.example.lessons.R.string.send_label),
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.SemiBold
                             )
