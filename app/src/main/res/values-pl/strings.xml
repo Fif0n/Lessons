@@ -178,8 +178,8 @@
     <string name="status_label_request">Status:</string>
     <string name="lesson_link_label_request">Link do lekcji:</string>
     <string name="student_contact_label">Kontakt ucznia:</string>
-    <string name="accept_lesson_request">Zaakceptuj żądanie</string>
-    <string name="reject_lesson_request">Odrzuć żądanie</string>
+    <string name="accept_lesson_request">Zaakceptuj prośbę</string>
+    <string name="reject_lesson_request">Odrzuć prośbę</string>
     <string name="send_message">Wyślij wiadomość</string>
     <string name="set_lesson_link">Ustaw link lekcji</string>
     <string name="accept_lesson_confirm">Czy na pewno chcesz zaakceptować tę lekcję?</string>

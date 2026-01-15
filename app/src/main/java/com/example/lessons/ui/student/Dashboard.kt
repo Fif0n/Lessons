@@ -105,7 +105,7 @@ fun Dashboard(navController: NavController, viewModel: DashboardViewModel) {
                                         modifier = Modifier.padding(4.dp)
                                     ) {
                                         Text(
-                                            text = stringResource(com.example.lessons.R.string.with_label_format, item.student.getFullName())
+                                            text = stringResource(com.example.lessons.R.string.with_label_format, item.teacher.getFullName())
                                         )
                                         Text(
                                             text = stringResource(com.example.lessons.R.string.subject_format, item.subject)

@@ -96,7 +96,7 @@ fun LessonsSettings(navController: NavController, viewModel: LessonsSettingViewM
     ) {
         Text(
             text = stringResource(R.string.update_lessons_settings_title),
-            fontSize = 36.sp,
+            fontSize = 30.sp,
             modifier = Modifier
                 .padding(top = 60.dp)
         )

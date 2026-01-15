@@ -105,9 +105,9 @@ abstract class AbstractSignupActivity(
             ) {
                 Text(
                     text = headerTranslation(role),
-                    fontSize = 30.sp,
+                    fontSize = 26.sp,
                     modifier = Modifier
-                        .padding(60.dp)
+                        .padding(50.dp)
                 )
                 Spacer(modifier = Modifier.size(10.dp))
                 Column(

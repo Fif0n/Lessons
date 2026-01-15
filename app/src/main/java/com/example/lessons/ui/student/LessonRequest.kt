@@ -146,7 +146,7 @@ fun LessonRequest(navController: NavController, viewModel: LessonRequestViewMode
                         fontSize = 18.sp
                     )
                     Text(
-                        text = it.status,
+                        text = it.statusName ?: "-",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
