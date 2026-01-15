@@ -205,33 +205,29 @@ fun TimePickerDialog(showDialog: Boolean, onDismiss: () -> Unit, dayNumber: Int,
             Box(
                 modifier = Modifier
                     .background(Color.White, shape = RoundedCornerShape(16.dp))
-                    .height(250.dp)
+                    .height(290.dp)
                     .padding(16.dp)
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     val locale = Locale.getDefault()
                     Text(text = stringResource(R.string.choose_time_for_day, DayOfWeek.of(dayNumber).getDisplayName(TextStyle.FULL, locale).replaceFirstChar { it.titlecase(Locale.getDefault()) }), fontSize = 19.sp, fontWeight = FontWeight.Bold)
                     Spacer(modifier = Modifier.height(10.dp))
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Column {
-                            TimePicker({hour, minute ->
-                                startingHour = hour
-                                startingMinute = minute
-                            }, startingHour, startingMinute)
-                        }
 
-                        Column {
-                            TimePicker({hour, minute ->
-                                endingHour = hour
-                                endingMinute = minute
-                            }, endingHour, endingMinute, false)
-
-                        }
-
+                    Column {
+                        TimePicker({hour, minute ->
+                            startingHour = hour
+                            startingMinute = minute
+                        }, startingHour, startingMinute)
                     }
+
+                    Column {
+                        TimePicker({hour, minute ->
+                            endingHour = hour
+                            endingMinute = minute
+                        }, endingHour, endingMinute, false)
+                    }
+
+
 
                     hoursError?.let { Text(text = it, color = Color.Red) }
 
