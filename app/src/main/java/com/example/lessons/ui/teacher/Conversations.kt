@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -86,7 +87,7 @@ fun ConversationList(conversations: LazyPagingItems<ConversationDto>, navControl
         if (conversations.loadState.refresh is LoadState.Error) {
             Toast.makeText(
                 context,
-                "Error occurred: " + (conversations.loadState.refresh as LoadState.Error).error.message,
+                (conversations.loadState.refresh as LoadState.Error).error.message,
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -158,7 +159,7 @@ fun ConversationItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Conversation with: ${conversation.lessonRequest.student.getFullName()}",
+                    text = stringResource(com.example.lessons.R.string.conversation_with, conversation.lessonRequest.student.getFullName()),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                 )
@@ -166,7 +167,7 @@ fun ConversationItem(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Created at: ${conversation.createdAtAsString ?: conversation.createdAt}"
+                    text = stringResource(com.example.lessons.R.string.created_at, conversation.createdAtAsString ?: conversation.createdAt)
                 )
             }
         }
