@@ -141,7 +141,7 @@ fun Conversation(navController: NavController, viewModel: ConversationViewModel)
                                         )
                                     }
                                     Text(
-                                        text = "At: ${message.timestamp}",
+                                        text = stringResource(com.example.lessons.R.string.created_at, message.timestamp),
                                         fontSize = 12.sp,
                                         color = Color.Gray,
                                         textAlign = TextAlign.End,
@@ -174,7 +174,7 @@ fun Conversation(navController: NavController, viewModel: ConversationViewModel)
                                     )
                                 }
                                 Text(
-                                    text = "At: ${message.timestamp}",
+                                    text = stringResource(com.example.lessons.R.string.created_at, message.timestamp),
                                     fontSize = 12.sp,
                                     color = Color.Gray,
                                     textAlign = TextAlign.Left,
